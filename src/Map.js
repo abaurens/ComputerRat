@@ -5,6 +5,7 @@ const tilesMap = {
 	"P": TILE.Plug,
 	"S": TILE.Slot,
 	" ": TILE.Lava,
+	"E": TILE.Exit,
 	"#": TILE.Ground,
 }
 

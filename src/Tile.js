@@ -24,6 +24,13 @@ export class Ground extends Tile
 	}
 }
 
+export class Exit extends Tile
+{
+	constructor() {
+		super(TEX.FLAG);
+	}
+}
+
 export class Plug extends Tile
 {
 	constructor() {
