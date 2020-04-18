@@ -23,11 +23,3 @@ export class Sprite {
 		return this.sprite;
 	}
 }
-
-export function getTexture(path) {
-	let tex = new THREE.TextureLoader().load(path);
-	tex.magFilter = THREE.NearestFilter;
-	tex.minFilter = THREE.NearestFilter;
-
-	return tex;
-}

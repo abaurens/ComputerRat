@@ -6,5 +6,14 @@ module.exports = {
 	output: {
 		path: __dirname + '/public',
 		filename: 'bundle.js'
+	},
+	module: {
+		rules: [{
+			test: /\.txt$/i,
+			use: [{
+				loader: 'raw-loader',
+				options: { esModule: false }
+			}]
+		}]
 	}
 }
