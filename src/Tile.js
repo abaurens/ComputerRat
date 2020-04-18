@@ -12,7 +12,7 @@ export class Tile extends THREE.Object3D {
 	}
 
 	setPos(x, y) {
-		this.position.set(x * TILE_SIZE, y * TILE_SIZE, 0);
+		this.position.set(x * TILE_SIZE + TILE_SIZE / 2, y * TILE_SIZE + TILE_SIZE / 2, -1);
 	}
 
 	getPos() { return this.pos; }
