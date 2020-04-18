@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import * as TILE from './Tile';
+import { Robot, DIRECTIONS } from './Robot'
 
 const tilesMap = {
 	"P": TILE.Plug,
@@ -47,7 +48,7 @@ export class Map extends THREE.Object3D {
 	}
 }
 
-export function loadMap(mapName) {
+export function loadMap(mapName, robot) {
 	let mapString = require(`../maps/${mapName}.txt`);
 	let size = mapString.length + (mapString[mapString.length - 1] !== "\n");
 	let width = mapString.indexOf('\n');
@@ -62,7 +63,14 @@ export function loadMap(mapName) {
 
 	for (let y = 0; y < height; ++y) {
 		for (let x = 0; x < width; x++) {
-			map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);
+			if ("nesw".includes(mapString[x + y * width]))
+			{
+				map.setTile(x, height - (y + 1), new TILE.Ground());
+				robot.setDirection(DIRECTIONS["nesw".indexOf(mapString[x + y * width])]);
+				robot.setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2));
+			}
+			else
+				map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);
 		}
 	}
 	return map;

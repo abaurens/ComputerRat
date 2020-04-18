@@ -4,10 +4,17 @@ import { ROBOT } from './texture';
 
 export const SPRITE_SIZE = 50;
 
-export const NORTH = 'n';
-export const SOUTH = 's';
-export const EAST = 'e';
-export const WEST = 'w';
+export const NORTH	= 0;
+export const EAST	= 1;
+export const SOUTH	= 2;
+export const WEST	= 3;
+
+export const DIRECTIONS = [
+	{ id: NORTH,	vec: new THREE.Vector2(0, 1),	ang: 0},
+	{ id: EAST,		vec: new THREE.Vector2(1, 0),	ang: -Math.PI / 2},
+	{ id: SOUTH,	vec: new THREE.Vector2(0, -1),	ang: Math.PI},
+	{ id: WEST,		vec: new THREE.Vector2(-1, 0),	ang: Math.PI / 2}
+];
 
 export class Robot extends Sprite {
 	constructor(direction) {
@@ -15,32 +22,23 @@ export class Robot extends Sprite {
 
 		this.material.transparent = true;
 
-		this.direction = direction;
+		this.setDirection(direction);
 	}
 
 	update() {
-		switch(this.direction)
-		{
-			case NORTH:
-				this.pos.y++;
-				this.material.rotation = 0;
-				break;
-			case EAST:
-				this.pos.x++;
-				this.material.rotation = -Math.PI / 2;
-				break;
-			case SOUTH:
-				this.pos.y--;
-				this.material.rotation = Math.PI;
-				break;
-			case WEST:
-				this.pos.x--;
-				this.material.rotation = Math.PI / 2;
-				break;
-			default:
-				throw "Not allowed direction";
-		}
+		this.setPos(this.pos.x + this.direction.vec.x, this.pos.y + this.direction.vec.y);
+	}
 
-		this.setPos(this.pos.x, this.pos.y);
+	setDirection(direction) {
+		this.direction = direction;
+		this.material.rotation = direction.ang;
+	}
+
+	turnRight() {
+		this.setDirection(DIRECTIONS[(this.direction.id + 1) % 4]);
+	}
+
+	turnLeft() {
+		this.setDirection(DIRECTIONS[(this.direction.id + 3) % 4]);
 	}
 }
