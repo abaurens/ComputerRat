@@ -1,0 +1,20 @@
+{
+  "name": "ld46",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "watch": "webpack --watch"
+  },
+  "author": "Thibault Gautier, Arthur Baurens",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "three": "^0.114.0"
+  }
+}
