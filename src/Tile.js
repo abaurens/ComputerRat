@@ -59,6 +59,7 @@ export class TurnTrigo extends Tile
 {
 	constructor() {
 		super(TEX.TURN_TRIG);
+		this.editable = true;
 	}
 
 	onRobotHover(robot) {
@@ -70,6 +71,7 @@ export class TurnHoraire extends Tile
 {
 	constructor() {
 		super(TEX.TURN_HORA);
+		this.editable = true;
 	}
 
 	onRobotHover(robot) {
@@ -81,6 +83,7 @@ export class TurnBack extends Tile
 {
 	constructor() {
 		super(TEX.TURN_BACK);
+		this.editable = true;
 	}
 
 	onRobotHover(robot) {
