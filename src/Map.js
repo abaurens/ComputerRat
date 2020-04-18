@@ -62,7 +62,7 @@ export function loadMap(mapName) {
 
 	for (let y = 0; y < height; ++y) {
 		for (let x = 0; x < width; x++) {
-			map.setTile(x, y, new tilesMap[mapString[x + y * width]]);
+			map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);
 		}
 	}
 	return map;
