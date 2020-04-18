@@ -1,7 +1,7 @@
 S###Ps 
-#   #PP
+#   #SS
 #SP   #
 S#   #S
 #S P#P#
-   ##P#
-#P##   
+   S#PS
+EP#S   

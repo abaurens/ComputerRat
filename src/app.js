@@ -47,18 +47,22 @@ let timer;
 let state = 0;
 
 startButton.addEventListener('click', (event) => {
-	let time = 0; // switch between turn and forward each tick
 
 	if (state === 0) {
 		state = 1;
 
 		timer = setInterval(() => {
-			if (!time++)
-				robot.update();
-			else {
-				robot.turnRight();
-				time = 0;
+			let hovered = map.getHovered(robot.position);
+
+			if(!hovered)
+			{
+				abortSimulation();
+				return;
 			}
+
+			hovered.tile.onRobotHover(robot);
+			
+			robot.update();
 		}, 1000 / 2);
 
 		startButton.classList.add('btn-stop');
@@ -66,16 +70,20 @@ startButton.addEventListener('click', (event) => {
 		startButton.innerHTML = "Stop Simulation";
 	}
 	else if (state === 1) {
-		state = 0;
-
-		clearInterval(timer);
-		robot.reset();
-
-		startButton.classList.add('btn-start');
-		startButton.classList.remove('btn-stop');
-		startButton.innerHTML = "Start Simulation";
+		abortSimulation();
 	}
 });
+
+function abortSimulation() {
+	state = 0;
+
+	clearInterval(timer);
+	robot.reset();
+
+	startButton.classList.add('btn-start');
+	startButton.classList.remove('btn-stop');
+	startButton.innerHTML = "Start Simulation";
+}
 
 let animate = function () {
 	requestAnimationFrame(animate);
