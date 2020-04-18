@@ -1,7 +1,7 @@
 module.exports = {
 	mode: 'development',
 	entry: {
-		app: ['./res/js/app.js']
+		app: ['./src/app.js']
 	},
 	output: {
 		path: __dirname + '/public',
