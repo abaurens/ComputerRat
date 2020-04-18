@@ -46,10 +46,18 @@ let startButton = document.querySelector("#start")
 let timer;
 let state = 0;
 
+window.addEventListener('mousedown', (event) => {
+	let hovered = map.getHovered(mouse);
+
+	if(!map.isLocked() && hovered !== null && hovered.tile.isEditable())
+		map.setTile(hovered.x, hovered.y, new TILE.Slot());
+});
+
 startButton.addEventListener('click', (event) => {
 
 	if (state === 0) {
 		state = 1;
+		map.lock();
 
 		timer = setInterval(() => {
 			let hovered = map.getHovered(robot.position);
@@ -76,6 +84,7 @@ startButton.addEventListener('click', (event) => {
 
 function abortSimulation() {
 	state = 0;
+	map.unlock();
 
 	clearInterval(timer);
 	robot.reset();
@@ -90,7 +99,7 @@ let animate = function () {
 
 	hover.position.set(0, 0, -3);
 	let hovered = map.getHovered(mouse);
-	if (hovered && hovered.tile.isEditable())
+	if (!map.isLocked() && hovered && hovered.tile.isEditable())
 		hover.position.set(hovered.tile.position.x, hovered.tile.position.y, -1);
 
 	renderer.render(scene, camera);

@@ -16,6 +16,8 @@ export class Map extends THREE.Object3D {
 		this.table = new Array(height);
 		this.size = new THREE.Vector2(width, height);
 
+		this.locked = false;
+
 		this.selectedTile = null;
 
 		for (let y = 0; y < height; ++y) {
@@ -46,6 +48,10 @@ export class Map extends THREE.Object3D {
 		let ty = Math.round(mouse.y / TILE.TILE_SIZE) + Math.floor(this.size.height / 2);
 		return { x : tx, y : ty, tile : this.table[ty][tx] };
 	}
+
+	lock() { this.locked = true; }
+	unlock() { this.locked = false; }
+	isLocked() { return this.locked ; }
 }
 
 export function loadMap(mapName, robot) {

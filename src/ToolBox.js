@@ -27,7 +27,7 @@ export class ToolBox extends THREE.Object3D {
 	
 			let hovered = this.map.getHovered(mouse);
 	
-			if(hovered !== null && hovered.tile.isEditable())
+			if(!this.map.isLocked() && hovered !== null && hovered.tile.isEditable())
 				this.map.setTile(hovered.x, hovered.y, tool.getTileInstance());
 		});
 	}
