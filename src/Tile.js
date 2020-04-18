@@ -45,3 +45,24 @@ export class Lava extends Tile
 		super(TEX.LAVA);
 	}
 }
+
+export class TurnTrigo extends Tile
+{
+	constructor() {
+		super(TEX.TURN_TRIG);
+	}
+}
+
+export class TurnHoraire extends Tile
+{
+	constructor() {
+		super(TEX.TURN_HORA);
+	}
+}
+
+export class TurnBack extends Tile
+{
+	constructor() {
+		super(TEX.TURN_BACK);
+	}
+}

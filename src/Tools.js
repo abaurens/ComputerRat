@@ -26,20 +26,20 @@ export class Tool extends THREE.Sprite {
 export class TurnRight extends Tool
 {
 	constructor() {
-		super(TEX.PLUG, TILE.Plug);
+		super(TEX.TURN_HORA, TILE.TurnHoraire);
 	}
 }
 
 export class TurnLeft extends Tool
 {
 	constructor() {
-		super(TEX.PLUG, TILE.Plug);
+		super(TEX.TURN_TRIG, TILE.TurnTrigo);
 	}
 }
 
 export class HalfTurn extends Tool
 {
 	constructor() {
-		super(TEX.PLUG, TILE.Plug);
+		super(TEX.TURN_BACK, TILE.TurnBack);
 	}
 }
