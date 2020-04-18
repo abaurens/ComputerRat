@@ -19,8 +19,27 @@ scene.add(map);
 let toolbox = new ToolBox(camera, renderer);
 scene.add(toolbox);
 
+let raycaster = new THREE.Raycaster();
+let mouse = new THREE.Vector2(0, 0);
+
+window.addEventListener('mousemove', (event) => {
+	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+}, false);
+
 let animate = function () {
 	requestAnimationFrame(animate);
+
+	// Updates
+	map.update();
+
+	// Raycaster
+	raycaster.setFromCamera(mouse, camera);
+	let intersects = raycaster.intersectObjects(map.children);
+
+	intersects.forEach(tile => {
+		tile.object.material.color.set(0xAAAAAA);
+	});
 
 	renderer.render(scene, camera);
 };

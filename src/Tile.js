@@ -3,11 +3,9 @@ import * as TEX from "./texture"
 
 export const TILE_SIZE = 50;
 
-export class Tile extends THREE.Object3D {
+export class Tile extends THREE.Sprite {
 	constructor(texture) {
-		super();
-		this.spriteMaterial = new THREE.SpriteMaterial({ map: texture ? texture : TEX.TILE_TEXTURE});
-		this.add(new THREE.Sprite(this.spriteMaterial));
+		super(new THREE.SpriteMaterial({ map: texture ? texture : TEX.TILE_TEXTURE}));
 		this.scale.set(TILE_SIZE, TILE_SIZE, 1);
 	}
 
