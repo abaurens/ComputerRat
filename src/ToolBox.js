@@ -42,7 +42,7 @@ export class ToolBox extends THREE.Object3D {
 
 	onToolRealease(event) {
 		let tool = event.object;
-		tool.setPos(tool.getAnchor().x, tool.getAnchor().y)
+		tool.setPos(tool.getAnchor().x, tool.getAnchor().y);
 	}
 }
 

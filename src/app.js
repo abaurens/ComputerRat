@@ -24,8 +24,8 @@ let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2(0, 0);
 
 window.addEventListener('mousemove', (event) => {
-	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	mouse.x = event.clientX - window.innerWidth / 2;
+	mouse.y = - event.clientY + window.innerHeight / 2;
 }, false);
 
 let hover	= new SPRITE.Sprite(TEXTURE.HOVER);
@@ -38,7 +38,6 @@ let animate = function () {
 	requestAnimationFrame(animate);
 	
 	// Updates
-	map.update();
 	hover.position.set(0, 0, 2);
 	
 	// Raycaster
@@ -49,7 +48,7 @@ let animate = function () {
 		if (tile.object.isEditable())
 		{
 			//tile.object.material.color.set(0xAAAAAA);
-			hover.position.set(tile.object.position.x, tile.object.position.y, 0);
+			hover.position.set(tile.object.position.x, tile.object.position.y, -1);
 		}
 	});
 	

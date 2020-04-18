@@ -14,6 +14,8 @@ export class Map extends THREE.Object3D {
 		this.table = new Array(height);
 		this.size = new THREE.Vector2(width, height);
 
+		this.selectedTile = null;
+
 		for (let y = 0; y < height; ++y) {
 			this.table[y] = new Array(width);
 			for (let x = 0; x < width; ++x) {
@@ -22,12 +24,6 @@ export class Map extends THREE.Object3D {
 				this.add(this.table[y][x]);
 			}
 		}
-	}
-
-	update() {
-		this.children.forEach((child) => {
-			child.material.color.set(0xffffff);
-		});
 	}
 
 	setTile(x, y, tile) {
