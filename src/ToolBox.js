@@ -16,13 +16,8 @@ export class ToolBox extends THREE.Object3D {
 
 		let controls = new DragControls(this.tools, camera, renderer.domElement);
 
-		controls.addEventListener('dragstart', function (event) {
-			console.log("AH")
-		});
-
-		controls.addEventListener('dragend', function (event) {
-			console.log("OH")
-		});
+		controls.addEventListener('dragstart', this.onToolDrag);
+		controls.addEventListener('dragend', this.onToolRealease);
 	}
 
 	addTool(tool)
@@ -41,6 +36,14 @@ export class ToolBox extends THREE.Object3D {
 		this.add(this.tools[i]);
 	}
 
+	onToolDrag(event) {
+
+	}
+
+	onToolRealease(event) {
+		let tool = event.object;
+		tool.setPos(tool.getAnchor().x, tool.getAnchor().y)
+	}
 }
 
 export function loadMap(mapName)

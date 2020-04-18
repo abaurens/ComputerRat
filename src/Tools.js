@@ -7,13 +7,16 @@ export class Tool extends THREE.Sprite {
 	constructor(texture) {
 		super(new THREE.SpriteMaterial({ map: texture ? texture : TEX.TILE_TEXTURE}));
 		this.scale.set(TOOL_SIZE, TOOL_SIZE, 1);
+
+		this.anchor = THREE.Vector2(0, 0);
 	}
 
 	setPos(x, y) {
 		this.position.set(x * TOOL_SIZE + TOOL_SIZE / 2, y * TOOL_SIZE + TOOL_SIZE / 2, 0);
+		this.anchor = new THREE.Vector2(x, y);
 	}
 
-	getPos() { return this.pos; }
+	getAnchor() { return this.anchor; }
 }
 
 export class GoRight extends Tool
