@@ -20,12 +20,11 @@ scene.add(map);
 let toolbox = new ToolBox(camera, renderer);
 scene.add(toolbox);
 
-let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2(0, 0);
 
 window.addEventListener('mousemove', (event) => {
-	mouse.x = event.clientX - window.innerWidth / 2;
-	mouse.y = - event.clientY + window.innerHeight / 2;
+	mouse.x = Math.round(event.clientX - window.innerWidth / 2);
+	mouse.y = Math.round(-event.clientY + window.innerHeight / 2);
 }, false);
 
 let hover	= new SPRITE.Sprite(TEXTURE.HOVER);
@@ -38,19 +37,11 @@ let animate = function () {
 	requestAnimationFrame(animate);
 	
 	// Updates
-	hover.position.set(0, 0, 2);
-	
-	// Raycaster
-	raycaster.setFromCamera(mouse, camera);
-	let intersects = raycaster.intersectObjects(map.children);
-	
-	intersects.forEach(tile => {
-		if (tile.object.isEditable())
-		{
-			//tile.object.material.color.set(0xAAAAAA);
-			hover.position.set(tile.object.position.x, tile.object.position.y, -1);
-		}
-	});
+
+	hover.position.set(0, 0, -2);
+	let tile = map.getHovered(mouse);
+	if (tile && tile.isEditable())
+		hover.position.set(tile.position.x, tile.position.y, -1);
 	
 	renderer.render(scene, camera);
 };

@@ -32,6 +32,18 @@ export class Map extends THREE.Object3D {
 		this.table[y][x].setPos((x - this.size.width / 2.0), (y - this.size.height / 2));
 		this.add(this.table[y][x]);
 	}
+
+	getHovered(mouse)
+	{
+		let boundW = TILE.TILE_SIZE * this.size.width / 2;
+		let boundH = TILE.TILE_SIZE * this.size.height / 2;
+
+		if (mouse.x < -boundW || mouse.x >= boundW || mouse.y <= -boundH || mouse.y > boundH)
+			return null;
+		let tx = Math.round(mouse.x / TILE.TILE_SIZE) + Math.floor(this.size.width / 2);
+		let ty = Math.round(mouse.y / TILE.TILE_SIZE) + Math.floor(this.size.height / 2);
+		return (this.table[ty][tx]);
+	}
 }
 
 export function loadMap(mapName) {
@@ -49,7 +61,6 @@ export function loadMap(mapName) {
 
 	for (let y = 0; y < height; ++y) {
 		for (let x = 0; x < width; x++) {
-			//console.log(x, y);
 			map.setTile(x, y, new tilesMap[mapString[x + y * width]]);
 		}
 	}
