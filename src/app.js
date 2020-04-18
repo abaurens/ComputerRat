@@ -30,7 +30,7 @@ map.position.set(0, 0, -1);
 
 let toolbox = new ToolBox(camera, renderer, map, mouse);
 
-let hover	= new SPRITE.Sprite(TEXTURE.HOVER);
+let hover = new SPRITE.Sprite(TEXTURE.HOVER);
 hover.material.transparent = true;
 hover.material.opacity = 0.2;
 hover.material.color.set(0xFFFF88)
@@ -41,17 +41,40 @@ scene.add(robot);
 scene.add(toolbox);
 
 // Updates
-let time = 0; // switch between turn and forward each tick
+let startButton = document.querySelector("#start")
 
-let timer = setInterval(() => {
-	if (!time++)
-		robot.update();
-	else
-	{
-		robot.turnRight();
-		time = 0;
+let timer;
+let state = 0;
+
+startButton.addEventListener('click', (event) => {
+	let time = 0; // switch between turn and forward each tick
+
+	if (state === 0) {
+		state = 1;
+
+		timer = setInterval(() => {
+			if (!time++)
+				robot.update();
+			else {
+				robot.turnRight();
+				time = 0;
+			}
+		}, 1000 / 2);
+
+		startButton.classList.add('btn-stop');
+		startButton.classList.remove('btn-start');
+		startButton.innerHTML = "Stop Simulation";
 	}
-}, 1000 / 2);
+	else if (state === 1) {
+		state = 0;
+
+		clearInterval(timer);
+
+		startButton.classList.add('btn-start');
+		startButton.classList.remove('btn-stop');
+		startButton.innerHTML = "Start Simulation";
+	}
+});
 
 let animate = function () {
 	requestAnimationFrame(animate);
@@ -60,7 +83,7 @@ let animate = function () {
 	let hovered = map.getHovered(mouse);
 	if (hovered && hovered.tile.isEditable())
 		hover.position.set(hovered.tile.position.x, hovered.tile.position.y, -1);
-	
+
 	renderer.render(scene, camera);
 };
 

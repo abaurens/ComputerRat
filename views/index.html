@@ -6,9 +6,50 @@
 		<style>
 			body { margin: 0; }
 			canvas { display: block; }
+
+			#controls {
+				position: absolute;
+				right: 0; top: 0; left: 0;
+
+				padding: 20px;
+			}
+
+			.btn {
+				cursor: pointer;
+				padding: 20px;
+
+				border-radius: 10px;
+
+				color: #fff;
+				font-weight: 800;
+				font-size: 24px;
+			}
+			
+			.btn-stop {
+				background-color: #cc2e06;
+				border: #752303 solid 2px;
+			}
+
+			.btn-stop:hover {
+				background-color: #da5635;
+				border: #8f320d solid 2px;
+			}
+
+			.btn-start {
+				background-color: #04df8b;
+				border: #06aa6b solid 2px;
+			}
+
+			.btn-start:hover {
+				background-color: #08aa6c;
+				border: #08774d solid 2px;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="controls">
+			<button id="start" class="btn btn-start">Start simulation</button>
+		</div>
 		<script src="/bundle.js"></script>
 	</body>
 </html>

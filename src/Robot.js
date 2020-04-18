@@ -38,7 +38,11 @@ export class Robot extends Sprite {
 		this.setDirection(DIRECTIONS[(this.direction.id + 1) % 4]);
 	}
 
+	turnBack() {
+		this.setDirection(DIRECTIONS[(this.direction.id + 2) % 4]);
+	}
+
 	turnLeft() {
 		this.setDirection(DIRECTIONS[(this.direction.id + 3) % 4]);
-	}
+	}	
 }

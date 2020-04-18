@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import DragControls from 'three-dragcontrols';
 
 import * as TOOLS from './Tools';
+import { TILE } from './texture';
+import { TILE_SIZE } from './Tile';
 
 export class ToolBox extends THREE.Object3D {
 	constructor(camera, renderer, map, mouse) {
@@ -39,8 +41,8 @@ export class ToolBox extends THREE.Object3D {
 		
 		this.tools[i] = tool;
 
-		let x = (i % 3) * 2 + 10;
-		let y = (Math.floor(i / 3)) * 2;
+		let x = (window.innerWidth / (2 * TILE_SIZE)) - (3 + ((i % 3) * 2));
+		let y = (window.innerHeight / (2 * TILE_SIZE)) - (6 + (Math.floor(i / 3) * 2));
 
 		this.tools[i].setPos(x, y);
 		this.add(this.tools[i]);
