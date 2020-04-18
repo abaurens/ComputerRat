@@ -5,7 +5,7 @@ export const TOOL_SIZE = 50;
 
 export class Tool extends THREE.Sprite {
 	constructor(texture) {
-		super(new THREE.SpriteMaterial({ map: texture ? texture : TEX.TILE_TEXTURE}));
+		super(new THREE.SpriteMaterial({ map: texture ? texture : TEX.TILE}));
 		this.scale.set(TOOL_SIZE, TOOL_SIZE, 1);
 
 		this.anchor = THREE.Vector2(0, 0);
@@ -22,27 +22,27 @@ export class Tool extends THREE.Sprite {
 export class GoRight extends Tool
 {
 	constructor() {
-		super(TEX.PLUG_TEXTURE);
+		super(TEX.PLUG);
 	}
 }
 
 export class GoLeft extends Tool
 {
 	constructor() {
-		super(TEX.PLUG_TEXTURE);
+		super(TEX.PLUG);
 	}
 }
 
 export class GoUp extends Tool
 {
 	constructor() {
-		super(TEX.PLUG_TEXTURE);
+		super(TEX.PLUG);
 	}
 }
 
 export class GoDown extends Tool
 {
 	constructor() {
-		super(TEX.PLUG_TEXTURE);
+		super(TEX.PLUG);
 	}
 }

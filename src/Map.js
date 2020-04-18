@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import * as TILE from './Tile';
 
-
 const tilesMap = {
 	"P": TILE.Plug,
 	"S": TILE.Slot,
@@ -19,7 +18,7 @@ export class Map extends THREE.Object3D {
 			this.table[y] = new Array(width);
 			for (let x = 0; x < width; ++x) {
 				this.table[y][x] = new TILE.Tile();
-				this.table[y][x].setPos((y - height / 2), (x - width / 2));
+				this.table[y][x].setPos((x - width / 2), (y - height / 2), 0);
 				this.add(this.table[y][x]);
 			}
 		}
