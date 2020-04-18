@@ -6,7 +6,7 @@ const tilesMap = {
 	"S": TILE.Slot,
 	" ": TILE.Lava,
 	"E": TILE.Exit,
-	"#": TILE.Ground,
+	"#": TILE.Ground
 }
 
 export class Map extends THREE.Object3D {

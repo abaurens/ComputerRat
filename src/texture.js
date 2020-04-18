@@ -12,6 +12,8 @@ export const TURN_BACK = getTexture("turn_back.png");
 export const TURN_TRIG = getTexture("turn_t.png");
 export const TURN_HORA = getTexture("turn_h.png");
 
+export const ROBOT = getTexture("pyramid_head.png")
+
 export function getTexture(path) {
 	let tex = new THREE.TextureLoader().load(path);
 	tex.magFilter = THREE.NearestFilter;

@@ -5,6 +5,7 @@ import * as SPRITE from './Sprite'
 import * as TEXTURE from './texture'
 
 import { ToolBox } from './ToolBox';
+import { Robot } from './Robot';
 
 let scene = new THREE.Scene();
 let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 1);
@@ -36,11 +37,17 @@ hover.material.opacity = 0.2;
 hover.material.color.set(0xFFFF88)
 scene.add(hover);
 
+let robot = new Robot("w");
+robot.setPos(0, 0);
+scene.add(robot);
+
+// Updates
+let timer = setInterval(() => {
+	robot.update();
+}, 1000 / 1);
 
 let animate = function () {
 	requestAnimationFrame(animate);
-	
-	// Updates
 
 	hover.position.set(0, 0, -2);
 	let hovered = map.getHovered(mouse);
