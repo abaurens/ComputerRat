@@ -4,6 +4,7 @@ import * as TILE from './Tile';
 
 const tilesMap = {
 	"P": TILE.Plug,
+	"S": TILE.Slot,
 	"#": TILE.Ground,
 }
 

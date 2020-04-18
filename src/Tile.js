@@ -31,3 +31,10 @@ export class Plug extends Tile
 		super(TEX.PLUG_TEXTURE);
 	}
 }
+
+export class Slot extends Tile
+{
+	constructor() {
+		super(TEX.SLOT_TEXTURE);
+	}
+}
