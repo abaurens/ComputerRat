@@ -38,3 +38,10 @@ export class Slot extends Tile
 		super(TEX.SLOT_TEXTURE);
 	}
 }
+
+export class Lava extends Tile
+{
+	constructor() {
+		super(TEX.LAVA_TEXTURE);
+	}
+}
