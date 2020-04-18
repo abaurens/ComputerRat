@@ -69,6 +69,7 @@ startButton.addEventListener('click', (event) => {
 		state = 0;
 
 		clearInterval(timer);
+		robot.reset();
 
 		startButton.classList.add('btn-start');
 		startButton.classList.remove('btn-stop');

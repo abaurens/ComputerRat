@@ -57,8 +57,6 @@ export function loadMap(mapName, robot) {
 	mapString = mapString.replace(/\r?\n|\r/gm, "");
 	size -= height;
 
-	console.log(mapString, size, width, height);
-
 	let map = new Map(width, height);
 
 	for (let y = 0; y < height; ++y) {
@@ -68,6 +66,7 @@ export function loadMap(mapName, robot) {
 				map.setTile(x, height - (y + 1), new TILE.Ground());
 				robot.setDirection(DIRECTIONS["nesw".indexOf(mapString[x + y * width])]);
 				robot.setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2));
+				robot.setDefault();
 			}
 			else
 				map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);

@@ -23,26 +23,38 @@ export class Robot extends Sprite {
 		this.material.transparent = true;
 
 		this.setDirection(direction);
+		this.defaultDir = direction;
+		this.defaultPos = this.pos;
 	}
 
 	update() {
-		this.setPos(this.pos.x + this.direction.vec.x, this.pos.y + this.direction.vec.y);
+		this.setPos(this.pos.x + this.dir.vec.x, this.pos.y + this.dir.vec.y);
 	}
 
 	setDirection(direction) {
-		this.direction = direction;
+		this.dir = direction;
 		this.material.rotation = direction.ang;
 	}
 
 	turnRight() {
-		this.setDirection(DIRECTIONS[(this.direction.id + 1) % 4]);
+		this.setDirection(DIRECTIONS[(this.dir.id + 1) % 4]);
 	}
 
 	turnBack() {
-		this.setDirection(DIRECTIONS[(this.direction.id + 2) % 4]);
+		this.setDirection(DIRECTIONS[(this.dir.id + 2) % 4]);
 	}
 
 	turnLeft() {
-		this.setDirection(DIRECTIONS[(this.direction.id + 3) % 4]);
-	}	
+		this.setDirection(DIRECTIONS[(this.dir.id + 3) % 4]);
+	}
+
+	setDefault() {
+		this.defaultPos = new THREE.Vector2(this.pos.x, this.pos.y);
+		this.defaultDir = this.dir;
+	}
+
+	reset() {
+		this.setPos(this.defaultPos.x, this.defaultPos.y);
+		this.setDirection(this.defaultDir);
+	}
 }
