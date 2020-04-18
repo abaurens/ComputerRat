@@ -8,7 +8,7 @@ import { ToolBox } from './ToolBox';
 import { Robot, DIRECTIONS } from './Robot';
 
 let scene = new THREE.Scene();
-let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 1);
+let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 2);
 
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -26,7 +26,7 @@ let robot = new Robot(DIRECTIONS[1]);
 robot.setPos(0, 0);
 
 let map = MAP.loadMap('02', robot);
-map.position.set(0, 0, -1);
+map.position.set(0, 0, -2);
 
 let toolbox = new ToolBox(camera, renderer, map, mouse);
 
@@ -88,7 +88,7 @@ function abortSimulation() {
 let animate = function () {
 	requestAnimationFrame(animate);
 
-	hover.position.set(0, 0, -2);
+	hover.position.set(0, 0, -3);
 	let hovered = map.getHovered(mouse);
 	if (hovered && hovered.tile.isEditable())
 		hover.position.set(hovered.tile.position.x, hovered.tile.position.y, -1);
