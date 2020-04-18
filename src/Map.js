@@ -42,7 +42,7 @@ export class Map extends THREE.Object3D {
 			return null;
 		let tx = Math.round(mouse.x / TILE.TILE_SIZE) + Math.floor(this.size.width / 2);
 		let ty = Math.round(mouse.y / TILE.TILE_SIZE) + Math.floor(this.size.height / 2);
-		return (this.table[ty][tx]);
+		return { x : tx, y : ty, tile : this.table[ty][tx] };
 	}
 }
 

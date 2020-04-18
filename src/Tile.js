@@ -14,8 +14,6 @@ export class Tile extends THREE.Sprite {
 		this.position.set(x * TILE_SIZE + TILE_SIZE / 2, y * TILE_SIZE + TILE_SIZE / 2, 0);
 	}
 
-	getPos() { return this.pos; }
-
 	isEditable() { return this.editable; }
 }
 

@@ -4,20 +4,30 @@ import DragControls from 'three-dragcontrols';
 import * as TOOLS from './Tools';
 
 export class ToolBox extends THREE.Object3D {
-	constructor(camera, renderer) {
+	constructor(camera, renderer, map, mouse) {
 		super();
 
 		this.tools = [];
 
-		this.addTool(new TOOLS.GoUp());
-		this.addTool(new TOOLS.GoRight());
-		this.addTool(new TOOLS.GoDown());
-		this.addTool(new TOOLS.GoLeft());
+		this.addTool(new TOOLS.TurnLeft());
+		this.addTool(new TOOLS.TurnRight());
+		this.addTool(new TOOLS.HalfTurn());
 
 		let controls = new DragControls(this.tools, camera, renderer.domElement);
 
+		this.map = map;
+		this.mouse = mouse;
+
 		controls.addEventListener('dragstart', this.onToolDrag);
-		controls.addEventListener('dragend', this.onToolRealease);
+		controls.addEventListener('dragend', (event) =>{
+			let tool = event.object;
+			tool.setPos(tool.getAnchor().x, tool.getAnchor().y);
+	
+			let hovered = this.map.getHovered(mouse);
+	
+			if(hovered !== null && hovered.tile.isEditable())
+				this.map.setTile(hovered.x, hovered.y, tool.getTileInstance());
+		});
 	}
 
 	addTool(tool)
@@ -40,10 +50,7 @@ export class ToolBox extends THREE.Object3D {
 
 	}
 
-	onToolRealease(event) {
-		let tool = event.object;
-		tool.setPos(tool.getAnchor().x, tool.getAnchor().y);
-	}
+	
 }
 
 export function loadMap(mapName)

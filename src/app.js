@@ -13,12 +13,6 @@ let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-let map = MAP.loadMap('02');
-map.position.set(0, 0, -1);
-scene.add(map);
-
-let toolbox = new ToolBox(camera, renderer);
-scene.add(toolbox);
 
 let mouse = new THREE.Vector2(0, 0);
 
@@ -27,9 +21,19 @@ window.addEventListener('mousemove', (event) => {
 	mouse.y = Math.round(-event.clientY + window.innerHeight / 2);
 }, false);
 
+
+let map = MAP.loadMap('02');
+map.position.set(0, 0, -1);
+scene.add(map);
+
+let toolbox = new ToolBox(camera, renderer, map, mouse);
+scene.add(toolbox);
+
+
 let hover	= new SPRITE.Sprite(TEXTURE.HOVER);
 hover.material.transparent = true;
-hover.material.opacity = 0.15;
+hover.material.opacity = 0.2;
+hover.material.color.set(0xFFFF88)
 scene.add(hover);
 
 
@@ -39,9 +43,9 @@ let animate = function () {
 	// Updates
 
 	hover.position.set(0, 0, -2);
-	let tile = map.getHovered(mouse);
-	if (tile && tile.isEditable())
-		hover.position.set(tile.position.x, tile.position.y, -1);
+	let hovered = map.getHovered(mouse);
+	if (hovered && hovered.tile.isEditable())
+		hover.position.set(hovered.tile.position.x, hovered.tile.position.y, -1);
 	
 	renderer.render(scene, camera);
 };

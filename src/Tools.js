@@ -1,14 +1,16 @@
 import * as THREE from 'three'
 import * as TEX from "./texture"
+import * as TILE from "./Tile"
 
 export const TOOL_SIZE = 50;
 
 export class Tool extends THREE.Sprite {
-	constructor(texture) {
+	constructor(texture, tileClass) {
 		super(new THREE.SpriteMaterial({ map: texture ? texture : TEX.TILE}));
 		this.scale.set(TOOL_SIZE, TOOL_SIZE, 1);
 
 		this.anchor = THREE.Vector2(0, 0);
+		this.tileClass = tileClass;
 	}
 
 	setPos(x, y) {
@@ -17,32 +19,27 @@ export class Tool extends THREE.Sprite {
 	}
 
 	getAnchor() { return this.anchor; }
+	
+	getTileInstance() { return new this.tileClass(); }
 }
 
-export class GoRight extends Tool
+export class TurnRight extends Tool
 {
 	constructor() {
-		super(TEX.PLUG);
+		super(TEX.PLUG, TILE.Plug);
 	}
 }
 
-export class GoLeft extends Tool
+export class TurnLeft extends Tool
 {
 	constructor() {
-		super(TEX.PLUG);
+		super(TEX.PLUG, TILE.Plug);
 	}
 }
 
-export class GoUp extends Tool
+export class HalfTurn extends Tool
 {
 	constructor() {
-		super(TEX.PLUG);
-	}
-}
-
-export class GoDown extends Tool
-{
-	constructor() {
-		super(TEX.PLUG);
+		super(TEX.PLUG, TILE.Plug);
 	}
 }
