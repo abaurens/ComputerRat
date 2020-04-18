@@ -1,10 +1,8 @@
 import * as THREE from 'three'
-import { CustomBlending } from 'three';
-
 
 var scene = new THREE.Scene();
 //var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-var camera = new THREE.OrthographicCamera(0, window.innerWidth, 0, window.innerHeight, -1, 1);
+var camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 1);
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -21,7 +19,7 @@ scene.add(cube);
 
 var spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap });
 var sprite = new THREE.Sprite(spriteMaterial);
-sprite.position.set(200, 200, 0);
+sprite.position.set(0, 0, 0);
 sprite.scale.set(200, 200, 1);
 scene.add(sprite);
 
