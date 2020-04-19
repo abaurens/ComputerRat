@@ -112,7 +112,7 @@ export class TurnBack extends Tile
 	}
 }
 
-class TilePaint extends Tile  {
+class TilePaint extends Tile {
 	constructor(texture, color) {
 		super(texture);
 		this.color = color;

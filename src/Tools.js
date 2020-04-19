@@ -26,41 +26,41 @@ export class Tool extends THREE.Sprite {
 export class TurnRight extends Tool
 {
 	constructor() {
-		super(TEX.TURN_HORA, TILE.TurnHoraire);
+		super(TEX.TURN_HORA_TOOL, TILE.TurnHoraire);
 	}
 }
 
 export class TurnLeft extends Tool
 {
 	constructor() {
-		super(TEX.TURN_TRIG, TILE.TurnTrigo);
+		super(TEX.TURN_TRIG_TOOL, TILE.TurnTrigo);
 	}
 }
 
 export class HalfTurn extends Tool
 {
 	constructor() {
-		super(TEX.TURN_BACK, TILE.TurnBack);
+		super(TEX.TURN_BACK_TOOL, TILE.TurnBack);
 	}
 }
 
 export class Swap extends Tool
 {
 	constructor() {
-		super(TEX.SWAP, TILE.Swap);
+		super(TEX.SWAP_TOOL, TILE.Swap);
 	}
 }
 
 export class Add extends Tool
 {
 	constructor() {
-		super(TEX.ADD, TILE.Add);
+		super(TEX.ADD_TOOL, TILE.Add);
 	}
 }
 
 export class Sub extends Tool
 {
 	constructor() {
-		super(TEX.SUB, TILE.Sub);
+		super(TEX.SUB_TOOL, TILE.Sub);
 	}
 }

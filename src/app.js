@@ -3,7 +3,6 @@ import * as TILE from './Tile'
 
 import { ToolBox } from './ToolBox';
 import { GameScene } from './GameScene';
-import { Robot } from './Robot';
 
 let timer;
 let startButton = document.querySelector("#start")
