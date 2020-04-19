@@ -173,7 +173,7 @@ export class Sub extends Tile {
 	}
 
 	onRobotHover(state) {
-		state.getStack().doOp((a, b) => a - b);
+		state.getStack().doOp((a, b) => b - a);
 		return true;
 	}
 }
