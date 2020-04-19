@@ -128,6 +128,7 @@ export class Map extends THREE.Object3D {
 }
 
 const dirs = "nesw";
+const colors = "01234567";
 
 export function loadMap(mapName) {
 	if(!mapName)
@@ -151,6 +152,20 @@ export function loadMap(mapName) {
 				map.getRobot().setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2), 1);
 				map.getRobot().setDirection(DIRECTIONS[dirs.indexOf(mapString[x + y * width])]);
 				map.getRobot().setDefault();
+			}
+			else if (colors.includes(mapString[x + y * width]))
+			{
+				let value = parseInt(mapString[x + y * width]);
+
+				let r = (value >> 2) & 0x01;
+				let g = (value >> 1) & 0x01;
+				let b = (value >> 0) & 0x01;
+
+				let color = (r) ? 0x0000FF : 0x00;
+				color |= (g) ? 0x00FF00  : 0x00;
+				color |= (b) ? 0xFF0000  : 0x00;
+
+				map.setTile(x, height - (y + 1), new TILE.Conditional(color));
 			}
 			else
 				map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);
