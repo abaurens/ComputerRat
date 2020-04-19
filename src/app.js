@@ -4,9 +4,8 @@ import * as SPRITE from './Sprite'
 import * as TEXTURE from './texture'
 
 import { ToolBox } from './ToolBox';
-import { GameState } from './GameState';
+import { GameScene } from './GameScene';
 
-let scene = new THREE.Scene();
 let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 2);
 
 let renderer = new THREE.WebGLRenderer();
@@ -25,13 +24,13 @@ hover.material.color.set(0xFFFF88)
 let timer;
 let startButton = document.querySelector("#start")
 
-let state = new GameState(scene, () => {
+let scene = new GameScene(() => {
 	clearInterval(timer);
 
-	state.stopSimulation();
-	state.getMap().unlock();
+	scene.stopSimulation();
+	scene.getMap().unlock();
 
-	state.getRobot().reset();
+	scene.getRobot().reset();
 
 	startButton.classList.add('btn-start');
 	startButton.classList.remove('btn-stop');
@@ -39,7 +38,7 @@ let state = new GameState(scene, () => {
 }, () => {
 	clearInterval(timer);
 
-	state.stopSimulation();
+	scene.stopSimulation();
 	alert("C'est gagné");
 
 	startButton.classList.add('btn-start');
@@ -47,10 +46,9 @@ let state = new GameState(scene, () => {
 	startButton.innerHTML = "Start Simulation";
 });
 
-state.setScene(scene);
-state.loadMap();
+scene.loadMap();
 
-let toolbox = new ToolBox(camera, renderer, state, mouse);
+let toolbox = new ToolBox(camera, renderer, scene, mouse);
 
 window.addEventListener('mousemove', (event) => {
 	mouse.x = Math.round(event.clientX - window.innerWidth / 2);
@@ -58,36 +56,36 @@ window.addEventListener('mousemove', (event) => {
 }, false);
 
 window.addEventListener('mousedown', (event) => {
-	let hovered = state.getMap().getHovered(mouse);
+	let hovered = scene.getMap().getHovered(mouse);
 
-	if(!state.getMap().isLocked() && hovered !== null && hovered.tile.isEditable())
-		state.getMap().setTile(hovered.x, hovered.y, new TILE.Slot());
+	if(!scene.getMap().isLocked() && hovered !== null && hovered.tile.isEditable())
+		scene.getMap().setTile(hovered.x, hovered.y, new TILE.Slot());
 });
 
 startButton.addEventListener('click', (event) => {
-	if (!state.isRunning()) {
-		state.runSimulation();
-		state.getMap().lock();
+	if (!scene.isRunning()) {
+		scene.runSimulation();
+		scene.getMap().lock();
 
 		timer = setInterval(() => {
-			let hovered = state.getMap().getHovered(state.getRobot().position);
+			let hovered = scene.getMap().getHovered(scene.getRobot().position);
 
 			if(!hovered)
 			{
-				state.triggerAbort();
+				scene.triggerAbort();
 				return;
 			}
 
-			if(hovered.tile.onRobotHover(state))
-				state.getRobot().update();
+			if(hovered.tile.onRobotHover(scene))
+				scene.getRobot().update();
 		}, 1000 / 2);
 
 		startButton.classList.add('btn-stop');
 		startButton.classList.remove('btn-start');
 		startButton.innerHTML = "Stop Simulation";
 	}
-	else if (state.isRunning()) {
-		state.triggerAbort();
+	else if (scene.isRunning()) {
+		scene.triggerAbort();
 	}
 });
 
@@ -98,8 +96,8 @@ let animate = function () {
 	requestAnimationFrame(animate);
 
 	hover.position.set(0, 0, -3);
-	let hovered = state.getMap().getHovered(mouse);
-	if (!state.getMap().isLocked() && hovered && hovered.tile.isEditable())
+	let hovered = scene.getMap().getHovered(mouse);
+	if (!scene.getMap().isLocked() && hovered && hovered.tile.isEditable())
 		hover.position.set(hovered.tile.position.x, hovered.tile.position.y, -1);
 
 	renderer.render(scene, camera);

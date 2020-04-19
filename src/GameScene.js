@@ -1,20 +1,19 @@
+import * as THREE from 'three';
+
 import * as MAP from './Map';
-import { Robot, SOUTH } from './Robot';
+import { Robot } from './Robot';
 
 const levels = ["01", "02"];
 
-export class GameState {
-	constructor(scene, abortCallback, victoryCallback) {
-		if(!scene)
-			throw "Scene not defined";
-		
+export class GameScene extends THREE.Scene{
+	constructor(abortCallback, victoryCallback) {
+		super();
+
 		this.state = 0;
 		this.level = 0;
 
-		this.scene = scene;
 		this.robot = new Robot();
-
-		this.scene.add(this.robot);
+		this.add(this.robot);
 
 		this.map = null;
 		
@@ -38,16 +37,12 @@ export class GameState {
 
 	loadMap(robot) {
 		if(this.map)
-			this.scene.remove(this.map);
+			this.remove(this.map);
 		this.map = MAP.loadMap(levels[this.level++], this.robot);
-		this.scene.add(this.map);
+		this.add(this.map);
 	}
 
-	getScene() { return this.scene; }
-	setScene(scene) { this.scene = scene; }
-
 	getRobot() { return this.robot; }
-	//setRobot(robot) { this.robot = robot; }
 
 	runSimulation() { this.state = 1; }
 	stopSimulation() { this.state = 0; }
