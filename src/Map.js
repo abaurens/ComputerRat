@@ -44,7 +44,7 @@ export class Map extends THREE.Object3D {
 		this.robot.material.color.set(0xff8888);
 
 		this.robotTransform = new THREE.Object3D();
-		this.robot.setPos(0, 0, -1);
+		this.robot.setPos(0, 0, 1);
 
 		this.add(this.robotTransform);
 		this.robotTransform.add(this.robot);
