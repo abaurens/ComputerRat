@@ -34,7 +34,7 @@ let scene = new GameScene(() => {
 }, () => {
 	startButton.disabled = true;
 
-	alert("Tu as fini le jeu ! Félicitation !")	
+	alert("Tu as fini le jeu ! Félicitation !")
 });
 
 let toolbox = new ToolBox(camera, renderer, scene, mouse);

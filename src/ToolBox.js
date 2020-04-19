@@ -22,7 +22,7 @@ export class ToolBox extends THREE.Object3D {
 		this.state = state;
 		this.mouse = mouse;
 
-		controls.addEventListener('dragstart', () => {});
+		controls.addEventListener('dragstart', () => {console.log("uh")});
 		controls.addEventListener('dragend', (event) =>{
 			let tool = event.object;
 			let map = this.state.getMap();

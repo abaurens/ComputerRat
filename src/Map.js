@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import * as TILE from './Tile';
-import { Robot, DIRECTIONS } from './Robot'
 import * as SPRITE from './Sprite';
 import * as TEXTURE from './texture'
+import { Robot, DIRECTIONS } from './Robot'
 
 const tilesMap = {
 	"P": TILE.Plug,
@@ -23,14 +23,11 @@ export class Map extends THREE.Object3D {
 
 		this.locked = false;
 
-		this.position.set(0, 0, -2);
-
 		for (let y = 0; y < height; ++y) {
 			this.table[y] = new Array(width);
 			for (let x = 0; x < width; ++x) {
-				this.table[y][x] = new TILE.Tile();
-				this.table[y][x].setPos((x - width / 2), (y - height / 2), 0);
-				this.add(this.table[y][x]);
+				this.table[y][x] = null;
+				this.setTile(x, y, new TILE.Tile());
 			}
 		}
 
@@ -40,6 +37,20 @@ export class Map extends THREE.Object3D {
 		this.hover.material.color.set(0xFFFF88);
 
 		this.add(this.hover);
+
+		this.robot = new Robot();
+		this.robot.material.color.set(0xff8888);
+
+		this.robotTransform = new THREE.Object3D();
+		this.robot.setPos(0, 0, -1);
+
+		this.add(this.robotTransform);
+		this.robotTransform.add(this.robot);
+		
+		this.offset = new THREE.Vector2(
+			(TILE.TILE_SIZE / 2) * !(this.size.width % 2),
+			(TILE.TILE_SIZE / 2) * !(this.size.height % 2));
+		this.robotTransform.position.set(this.offset.x, this.offset.y, 0);
 	}
 
 	update(mouse) {
@@ -50,29 +61,69 @@ export class Map extends THREE.Object3D {
 	}
 
 	setTile(x, y, tile) {
-		this.remove(this.table[y][x]);
+		if (this.table[y][x])
+			this.remove(this.table[y][x]);
 		this.table[y][x] = tile;
-		this.table[y][x].setPos((x - this.size.width / 2.0), (y - this.size.height / 2));
+		this.table[y][x].setPos(x - (this.size.width / 2), y - (this.size.height / 2));
 		this.add(this.table[y][x]);
 	}
 
 	getHovered(mouse)
 	{
-		let boundW = TILE.TILE_SIZE * this.size.width / 2;
-		let boundH = TILE.TILE_SIZE * this.size.height / 2;
+		let boundW = TILE.TILE_SIZE * this.size.width;
+		let boundH = TILE.TILE_SIZE * this.size.height;
 
-		if (mouse.x < -boundW || mouse.x >= boundW || mouse.y <= -boundH || mouse.y > boundH)
+		let txx = mouse.x + (boundW / 2);
+		let tyy = mouse.y + (boundH / 2);
+		if (txx < 0 || txx >= boundW || tyy < 0 || tyy >= boundH)
 			return null;
-		let tx = Math.round(mouse.x / TILE.TILE_SIZE) + Math.floor(this.size.width / 2);
-		let ty = Math.round(mouse.y / TILE.TILE_SIZE) + Math.floor(this.size.height / 2);
+
+		let tx = Math.floor(txx / TILE.TILE_SIZE);
+		let ty = Math.floor(tyy / TILE.TILE_SIZE);
 		return { x : tx, y : ty, tile : this.table[ty][tx] };
+	}
+
+	getRobot() {
+		return (this.robot);
+	}
+
+	getTile(x, y)
+	{
+		if (x < 0 || y < 0 || x >= this.size.width || y > this.size.height)
+			return null;
+		return (this.table[y][x]);
 	}
 
 	lock() { this.locked = true; }
 	unlock() { this.locked = false; }
 	isLocked() { return this.locked ; }
-}
 
+
+	toMapCoord(x, y) {
+		let res = new THREE.Vector2(0, 0);
+	
+		let boundW = TILE.TILE_SIZE * this.size.width;
+		let boundH = TILE.TILE_SIZE * this.size.height;
+	
+		let txx = x + (boundW / 2);
+		let tyy = y + (boundH / 2);
+	
+		res.x = Math.floor(txx / TILE.TILE_SIZE);
+		res.y = Math.floor(tyy / TILE.TILE_SIZE);
+		return (res);
+	}
+	
+	toWorldCoord(x, y) {
+		y = (this.size.height - (y + 1));
+		let boundW = TILE.TILE_SIZE * this.size.width;
+		let boundH = TILE.TILE_SIZE * this.size.height;
+		let res = new THREE.Vector2(0, 0);
+	
+		res.x = (x * TILE.TILE_SIZE) - boundW / 2;
+		res.y = (y * TILE.TILE_SIZE) - boundH / 2;
+		return (res);
+	}
+}
 
 const dirs = "nesw";
 
@@ -98,6 +149,9 @@ export function loadMap(mapName, robot) {
 				robot.setDirection(DIRECTIONS[dirs.indexOf(mapString[x + y * width])]);
 				robot.setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2));
 				robot.setDefault();
+				map.getRobot().setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2), 1);
+				map.getRobot().setDirection(DIRECTIONS[dirs.indexOf(mapString[x + y * width])]);
+				map.getRobot().setDefault();
 			}
 			else
 				map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);

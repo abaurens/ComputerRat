@@ -29,7 +29,7 @@ export class Robot extends Sprite {
 
 		this.setDirection(direction);
 		this.defaultDir = direction;
-		this.defaultPos = this.pos;
+		this.defaultPos = this.position;
 	}
 
 	update() {
@@ -57,7 +57,7 @@ export class Robot extends Sprite {
 	}
 
 	setDefault() {
-		this.defaultPos = new THREE.Vector2(this.pos.x, this.pos.y);
+		this.defaultPos = new THREE.Vector2(this.position.x, this.position.y);
 		this.defaultDir = this.dir;
 	}
 
@@ -80,7 +80,7 @@ export class Robot extends Sprite {
 	isAlive() { return this.energy >= 0; }
 
 	reset() {
-		this.setPos(this.defaultPos.x, this.defaultPos.y);
+		this.position.set(this.defaultPos.x, this.defaultPos.y, this.defaultPos.y);
 		this.setDirection(this.defaultDir);
 
 		this.setEnergy(energyMax);

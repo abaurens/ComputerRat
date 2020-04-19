@@ -4,7 +4,7 @@ import * as MAP from './Map';
 import { Robot } from './Robot';
 import { Stack } from './Stack';
 
-const levels = ["03", "00", "01", "02", "03"];
+const levels = ["-1", "03", "00", "01", "02", "03"];
 
 export class GameScene extends THREE.Scene {
 	constructor(abortCallback, victoryCallback, endCallback) {

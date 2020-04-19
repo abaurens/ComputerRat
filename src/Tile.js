@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import * as TEX from "./texture"
 
 export const TILE_SIZE = 50;
+export const HALF_TILE = (TILE_SIZE / 2);
 
 export class Tile extends THREE.Sprite {
 	constructor(texture) {
@@ -10,8 +11,8 @@ export class Tile extends THREE.Sprite {
 		this.editable = false;
 	}
 
-	setPos(x, y) {
-		this.position.set(x * TILE_SIZE + TILE_SIZE / 2, y * TILE_SIZE + TILE_SIZE / 2, 0);
+	setPos(x, y, z = 0) {
+		this.position.set(x * TILE_SIZE + HALF_TILE, y * TILE_SIZE + HALF_TILE, z);
 	}
 
 	isEditable() { return this.editable; }
