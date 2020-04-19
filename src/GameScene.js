@@ -5,8 +5,8 @@ import { Robot } from './Robot';
 
 const levels = ["01", "02"];
 
-export class GameScene extends THREE.Scene{
-	constructor(abortCallback, victoryCallback) {
+export class GameScene extends THREE.Scene {
+	constructor(abortCallback, victoryCallback, endCallback) {
 		super();
 
 		this.state = 0;
@@ -16,9 +16,15 @@ export class GameScene extends THREE.Scene{
 		this.add(this.robot);
 
 		this.map = null;
+		this.loadMap();
 		
 		this.abortCallback = abortCallback;
 		this.victoryCallback = victoryCallback;
+		this.endCallback = endCallback;
+	}
+
+	update(mouse) {
+		this.map.update(mouse);
 	}
 
 	triggerAbort() {
@@ -30,16 +36,26 @@ export class GameScene extends THREE.Scene{
 		this.state = 0;
 		this.victoryCallback();
 
-		this.loadMap();
+		if(!this.loadMap())
+		{
+			this.state = 2;
+			this.endCallback();
+		}
 	}
 
 	getMap() { return this.map; }
 
-	loadMap(robot) {
+	loadMap() {
+		// Last map succeeded
+		if(this.level >= levels.length)
+			return false;
+
 		if(this.map)
 			this.remove(this.map);
 		this.map = MAP.loadMap(levels[this.level++], this.robot);
 		this.add(this.map);
+
+		return true;
 	}
 
 	getRobot() { return this.robot; }

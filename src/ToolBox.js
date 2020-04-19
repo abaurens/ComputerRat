@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import DragControls from 'three-dragcontrols';
 
 import * as TOOLS from './Tools';
-import { TILE } from './texture';
 import { TILE_SIZE } from './Tile';
 
 export class ToolBox extends THREE.Object3D {
@@ -24,7 +23,7 @@ export class ToolBox extends THREE.Object3D {
 		controls.addEventListener('dragend', (event) =>{
 			let tool = event.object;
 			let map = this.state.getMap();
-			
+
 			tool.setPos(tool.getAnchor().x, tool.getAnchor().y);
 	
 			let hovered = map.getHovered(mouse);
