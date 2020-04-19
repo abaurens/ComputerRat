@@ -43,6 +43,11 @@ export class Plug extends Tile
 	constructor() {
 		super(TEX.PLUG);
 	}
+
+	onRobotHover(state) {
+		state.getRobot().chargeMax();
+		return true;
+	}
 }
 
 export class Slot extends Tile

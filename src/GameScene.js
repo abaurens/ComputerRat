@@ -55,6 +55,8 @@ export class GameScene extends THREE.Scene {
 		this.map = MAP.loadMap(levels[this.level++], this.robot);
 		this.add(this.map);
 
+		this.robot.chargeMax();
+
 		return true;
 	}
 

@@ -16,9 +16,14 @@ export const DIRECTIONS = [
 	{ id: WEST,		vec: new THREE.Vector2(-1, 0),	ang: Math.PI / 2}
 ];
 
+const energyMax = 10;
+
 export class Robot extends Sprite {
 	constructor(direction = DIRECTIONS[SOUTH]) {
 		super(ROBOT);
+
+		this.energyBar = document.querySelector("#energy-bar");
+		this.setEnergy(energyMax);
 
 		this.material.transparent = true;
 
@@ -28,7 +33,10 @@ export class Robot extends Sprite {
 	}
 
 	update() {
+		this.energy--;
 		this.setPos(this.pos.x + this.dir.vec.x, this.pos.y + this.dir.vec.y);
+
+		this.energyBar.value = this.energy * (100 / energyMax);
 	}
 
 	setDirection(direction) {
@@ -53,8 +61,28 @@ export class Robot extends Sprite {
 		this.defaultDir = this.dir;
 	}
 
+	charge(energy) {
+		this.setEnergy(this.energy + energy);
+	}
+
+	chargeMax() {
+		this.setEnergy(energyMax);
+	}
+
+	setEnergy(energy) {
+		if(energy < 0)
+			energy = 0;
+		this.energy = (energy > energyMax) ? energyMax : energy;
+
+		this.energyBar.value = this.energy * (100 / energyMax);
+	}
+
+	isAlive() { return this.energy > 0; }
+
 	reset() {
 		this.setPos(this.defaultPos.x, this.defaultPos.y);
 		this.setDirection(this.defaultDir);
+
+		this.setEnergy(energyMax);
 	}
 }

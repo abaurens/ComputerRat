@@ -3,6 +3,7 @@ import * as TILE from './Tile'
 
 import { ToolBox } from './ToolBox';
 import { GameScene } from './GameScene';
+import { Robot } from './Robot';
 
 let timer;
 let startButton = document.querySelector("#start")
@@ -65,6 +66,9 @@ startButton.addEventListener('click', (event) => {
 
 			if(hovered.tile.onRobotHover(scene))
 				scene.getRobot().update();
+			
+			if(!scene.getRobot().isAlive())
+				scene.triggerAbort();
 		}, 1000 / 2);
 
 		startButton.classList.add('btn-stop');
