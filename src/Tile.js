@@ -19,6 +19,7 @@ export class Tile extends THREE.Sprite {
 
 	onRobotEnter(state) { return true; }
 	onRobotHover(state) { return true; }
+	onRobotLeave(state) { return true; }
 }
 
 export class Ground extends Tile

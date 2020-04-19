@@ -59,32 +59,29 @@ startButton.addEventListener('click', (event) => {
 		scene.getMap().lock();
 
 		timer = setInterval(() => {
+			scene.switchTick();
 			let hovered = scene.getMap().getHovered(scene.getRobot().position);
 
-			if(!hovered)
+			if (!hovered)
 			{
 				scene.triggerAbort();
 				return;
 			}
 
-			if(hovered.tile.onRobotHover(scene))
+			if (scene.getTick()) // once over two from first
 			{
+				hovered.tile.onRobotLeave(scene);
 				scene.getRobot().update();
-
 				hovered = scene.getMap().getHovered(scene.getRobot().position);
-
-				if(!hovered)
-				{
-					scene.triggerAbort();
-					return;
-				}
-
-				hovered.tile.onRobotEnter(scene);
+				if (hovered)
+					hovered.tile.onRobotEnter(scene);
 			}
-			
+			else // once over two from second
+				hovered.tile.onRobotHover(scene);
+
 			if(!scene.getRobot().isAlive())
 				scene.triggerAbort();
-		}, 1000 / 2);
+		}, 1000 / 4);
 
 		startButton.classList.add('btn-stop');
 		startButton.classList.remove('btn-start');

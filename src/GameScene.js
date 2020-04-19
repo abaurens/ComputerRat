@@ -12,6 +12,7 @@ export class GameScene extends THREE.Scene {
 
 		this.state = 0;
 		this.level = 0;
+		this.tick = 0;
 
 		this.stack = new Stack();
 		this.add(this.stack);
@@ -29,11 +30,13 @@ export class GameScene extends THREE.Scene {
 	}
 
 	triggerAbort() {
+		this.tick = 0;
 		this.state = 0;
 		this.abortCallback();
 	}
 
 	triggerVictory() {
+		this.tick = 0;
 		this.state = 0;
 		this.victoryCallback();
 
@@ -58,6 +61,7 @@ export class GameScene extends THREE.Scene {
 
 		this.map.getRobot().chargeMax();
 		this.stack.flush();
+		this.tick = 0;
 
 		return true;
 	}
@@ -71,4 +75,7 @@ export class GameScene extends THREE.Scene {
 	isRunning() { return this.state === 1; }
 
 	getLevel() { return levels[this.level]; }
+
+	switchTick() { this.tick ^= 1; }
+	getTick() { return this.tick; }
 }
