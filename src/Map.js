@@ -41,7 +41,6 @@ export class Map extends THREE.Object3D {
 		this.add(this.hover);
 
 		this.robot = new Robot();
-		this.robot.material.color.set(0xff8888);
 
 		this.robotTransform = new THREE.Object3D();
 		this.robot.setPos(0, 0, 1);
