@@ -161,9 +161,9 @@ export function loadMap(mapName) {
 				let g = (value >> 1) & 0x01;
 				let b = (value >> 0) & 0x01;
 
-				let color = (r) ? 0x0000FF : 0x00;
+				let color = (b) ? 0x0000FF : 0x00;
 				color |= (g) ? 0x00FF00  : 0x00;
-				color |= (b) ? 0xFF0000  : 0x00;
+				color |= (r) ? 0xFF0000  : 0x00;
 
 				map.setTile(x, height - (y + 1), new TILE.Conditional(color));
 			}
