@@ -178,3 +178,25 @@ export class Sub extends Tile {
 		return true;
 	}
 }
+
+export class Conditional extends Tile {
+	constructor(color) {
+		super(TEX.TILE);
+		this.editable = true;
+
+		this.color = color;
+
+		this.material.color.set(color);
+	}
+
+	onRobotHover(state) {
+		let color = state.getStack().pop();
+
+		if(this.color !== color)
+		{
+			state.triggerAbort();
+			return false;
+		}
+		return true;
+	}
+}

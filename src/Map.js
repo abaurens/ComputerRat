@@ -23,6 +23,8 @@ export class Map extends THREE.Object3D {
 
 		this.locked = false;
 
+		this.position.set(0, 0, -1);
+
 		for (let y = 0; y < height; ++y) {
 			this.table[y] = new Array(width);
 			for (let x = 0; x < width; ++x) {
