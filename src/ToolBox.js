@@ -45,8 +45,8 @@ export class ToolBox extends THREE.Object3D {
 		
 		this.tools[i] = tool;
 
-		let x = (window.innerWidth / (2 * TILE_SIZE)) - (3 + ((i % 3) * 2));
-		let y = (window.innerHeight / (2 * TILE_SIZE)) - (6 + (Math.floor(i / 3) * 2));
+		let x = (window.innerWidth / (2 * TILE_SIZE)) - (3 + ((i % 3) * 1.2));
+		let y = (window.innerHeight / (2 * TILE_SIZE)) - (6 + (Math.floor(i / 3) * 1.2));
 
 		this.tools[i].setPos(x, y);
 		this.add(this.tools[i]);

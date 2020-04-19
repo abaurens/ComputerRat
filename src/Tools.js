@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import * as TEX from "./texture"
 import * as TILE from "./Tile"
 
-export const TOOL_SIZE = 50;
+export const TOOL_SIZE = 64;
 
 export class Tool extends THREE.Sprite {
 	constructor(texture, tileClass) {

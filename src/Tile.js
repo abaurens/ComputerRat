@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import * as TEX from "./texture"
 
-export const TILE_SIZE = 50;
+export const TILE_SIZE = 64;
 export const HALF_TILE = (TILE_SIZE / 2);
 
 export class Tile extends THREE.Sprite {

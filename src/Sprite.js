@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export const SPRITE_SIZE = 50;
+export const SPRITE_SIZE = 64;
 
 export class Sprite extends THREE.Sprite{
 	constructor(texture, width = SPRITE_SIZE, height = SPRITE_SIZE) {
