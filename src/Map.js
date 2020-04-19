@@ -129,7 +129,7 @@ export class Map extends THREE.Object3D {
 
 const dirs = "nesw";
 
-export function loadMap(mapName, robot) {
+export function loadMap(mapName) {
 	if(!mapName)
 		return null;
 	
@@ -148,9 +148,6 @@ export function loadMap(mapName, robot) {
 			if (dirs.includes(mapString[x + y * width]))
 			{
 				map.setTile(x, height - (y + 1), new TILE.Ground());
-				robot.setDirection(DIRECTIONS[dirs.indexOf(mapString[x + y * width])]);
-				robot.setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2));
-				robot.setDefault();
 				map.getRobot().setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2), 1);
 				map.getRobot().setDirection(DIRECTIONS[dirs.indexOf(mapString[x + y * width])]);
 				map.getRobot().setDefault();

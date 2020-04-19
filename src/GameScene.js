@@ -13,9 +13,6 @@ export class GameScene extends THREE.Scene {
 		this.state = 0;
 		this.level = 0;
 
-		this.robot = new Robot();
-		this.add(this.robot);
-
 		this.stack = new Stack();
 		this.add(this.stack);
 
@@ -56,16 +53,16 @@ export class GameScene extends THREE.Scene {
 
 		if(this.map)
 			this.remove(this.map);
-		this.map = MAP.loadMap(levels[this.level++], this.robot);
+		this.map = MAP.loadMap(levels[this.level++]);
 		this.add(this.map);
 
-		this.robot.chargeMax();
+		this.map.getRobot().chargeMax();
 		this.stack.flush();
 
 		return true;
 	}
 
-	getRobot() { return this.robot; }
+	getRobot() { return this.map.getRobot(); }
 
 	getStack() { return this.stack; }
 
