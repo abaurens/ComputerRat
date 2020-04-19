@@ -43,3 +43,24 @@ export class HalfTurn extends Tool
 		super(TEX.TURN_BACK, TILE.TurnBack);
 	}
 }
+
+export class Swap extends Tool
+{
+	constructor() {
+		super(TEX.SWAP, TILE.Swap);
+	}
+}
+
+export class Add extends Tool
+{
+	constructor() {
+		super(TEX.ADD, TILE.Add);
+	}
+}
+
+export class Sub extends Tool
+{
+	constructor() {
+		super(TEX.SUB, TILE.Sub);
+	}
+}

@@ -9,7 +9,10 @@ const tilesMap = {
 	"S": TILE.Slot,
 	" ": TILE.Lava,
 	"E": TILE.Exit,
-	"#": TILE.Ground
+	"#": TILE.Ground,
+	"R": TILE.PaintRed,
+	"G": TILE.PaintGreen,
+	"B": TILE.PaintBlue
 }
 
 export class Map extends THREE.Object3D {

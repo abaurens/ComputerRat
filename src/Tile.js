@@ -16,7 +16,8 @@ export class Tile extends THREE.Sprite {
 
 	isEditable() { return this.editable; }
 
-	onRobotHover(robot, state) { return true; }
+	onRobotEnter(state) { return true; }
+	onRobotHover(state) { return true; }
 }
 
 export class Ground extends Tile
@@ -105,6 +106,74 @@ export class TurnBack extends Tile
 
 	onRobotHover(state) {
 		state.getRobot().turnBack();
+		return true;
+	}
+}
+
+class TilePaint extends Tile  {
+	constructor(texture, color) {
+		super(texture);
+		this.color = color;
+	}
+
+	getColor() { return this.color; }
+
+	onRobotEnter(state) {
+		state.getStack().push(this.color);
+		return true;
+	}
+}
+
+export class PaintRed extends TilePaint {
+	constructor() {
+		super(TEX.PAINT_RED, 0xFF0000);
+	}
+}
+
+export class PaintGreen extends TilePaint {
+	constructor() {
+		super(TEX.PAINT_GREEN, 0x00FF00);
+	}
+}
+
+export class PaintBlue extends TilePaint {
+	constructor() {
+		super(TEX.PAINT_BLUE, 0x0000FF);
+	}
+}
+
+export class Swap extends Tile {
+	constructor() {
+		super(TEX.SWAP, 0x0000FF);
+		this.editable = true;
+	}
+
+	onRobotHover(state) {
+		state.getStack().swap();
+		return true;
+	}
+}
+
+export class Add extends Tile {
+	constructor() {
+		super(TEX.ADD, 0x0000FF);
+		this.editable = true;
+	}
+
+	onRobotHover(state) {
+		state.getStack().doOp((a, b) => a + b);
+		return true;
+	}
+}
+
+export class Sub extends Tile {
+	constructor() {
+		super(TEX.SUB, 0x0000FF);
+		this.editable = true;
+	}
+
+	onRobotHover(state) {
+		state.getStack().doOp((a, b) => a - b);
 		return true;
 	}
 }

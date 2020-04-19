@@ -77,7 +77,7 @@ export class Robot extends Sprite {
 		this.energyBar.value = this.energy * (100 / energyMax);
 	}
 
-	isAlive() { return this.energy > 0; }
+	isAlive() { return this.energy >= 0; }
 
 	reset() {
 		this.setPos(this.defaultPos.x, this.defaultPos.y);

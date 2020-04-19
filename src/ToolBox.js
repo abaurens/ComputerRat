@@ -13,13 +13,16 @@ export class ToolBox extends THREE.Object3D {
 		this.addTool(new TOOLS.TurnLeft());
 		this.addTool(new TOOLS.TurnRight());
 		this.addTool(new TOOLS.HalfTurn());
+		this.addTool(new TOOLS.Swap());
+		this.addTool(new TOOLS.Add());
+		this.addTool(new TOOLS.Sub());
 
 		let controls = new DragControls(this.tools, camera, renderer.domElement);
 
 		this.state = state;
 		this.mouse = mouse;
 
-		controls.addEventListener('dragstart', this.onToolDrag);
+		controls.addEventListener('dragstart', () => {});
 		controls.addEventListener('dragend', (event) =>{
 			let tool = event.object;
 			let map = this.state.getMap();
@@ -48,33 +51,4 @@ export class ToolBox extends THREE.Object3D {
 		this.tools[i].setPos(x, y);
 		this.add(this.tools[i]);
 	}
-
-	onToolDrag(event) {
-
-	}
-}
-
-export function loadMap(mapName)
-{
-	let mapString = require(`../maps/${mapName}.txt`);
-	let size = mapString.length + (mapString[mapString.length - 1] !== "\n");
-	let width = mapString.indexOf('\n');
-	let height = size / (width + 1);
-
-	mapString = mapString.replace(/\r?\n|\r/gm, "");
-	size -= height;
-
-	console.log(mapString, size, width, height);
-
-	let map = new Map(width, height);
-
-	for (let y = 0; y < height; ++y)
-	{
-		for (let x = 0; x < width; x++)
-		{
-			//console.log(x, y);
-			map.setTile(x, y, new tilesMap[mapString[x + y * width]]);
-		}
-	}
-	return map;
 }

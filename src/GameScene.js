@@ -2,8 +2,9 @@ import * as THREE from 'three';
 
 import * as MAP from './Map';
 import { Robot } from './Robot';
+import { Stack } from './Stack';
 
-const levels = ["01", "02"];
+const levels = ["03", "00", "01", "02", "03"];
 
 export class GameScene extends THREE.Scene {
 	constructor(abortCallback, victoryCallback, endCallback) {
@@ -14,6 +15,9 @@ export class GameScene extends THREE.Scene {
 
 		this.robot = new Robot();
 		this.add(this.robot);
+
+		this.stack = new Stack();
+		this.add(this.stack);
 
 		this.map = null;
 		this.loadMap();
@@ -56,11 +60,14 @@ export class GameScene extends THREE.Scene {
 		this.add(this.map);
 
 		this.robot.chargeMax();
+		this.stack.flush();
 
 		return true;
 	}
 
 	getRobot() { return this.robot; }
+
+	getStack() { return this.stack; }
 
 	runSimulation() { this.state = 1; }
 	stopSimulation() { this.state = 0; }

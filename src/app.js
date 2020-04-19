@@ -18,6 +18,7 @@ let scene = new GameScene(() => {
 	scene.getMap().unlock();
 
 	scene.getRobot().reset();
+	scene.getStack().flush();
 
 	startButton.classList.add('btn-start');
 	startButton.classList.remove('btn-stop');
@@ -37,6 +38,8 @@ let scene = new GameScene(() => {
 });
 
 let toolbox = new ToolBox(camera, renderer, scene, mouse);
+
+scene.add(toolbox);
 
 window.addEventListener('mousemove', (event) => {
 	mouse.x = Math.round(event.clientX - window.innerWidth / 2);
@@ -65,7 +68,19 @@ startButton.addEventListener('click', (event) => {
 			}
 
 			if(hovered.tile.onRobotHover(scene))
+			{
 				scene.getRobot().update();
+
+				hovered = scene.getMap().getHovered(scene.getRobot().position);
+
+				if(!hovered)
+				{
+					scene.triggerAbort();
+					return;
+				}
+
+				hovered.tile.onRobotEnter(scene);
+			}
 			
 			if(!scene.getRobot().isAlive())
 				scene.triggerAbort();
@@ -79,8 +94,6 @@ startButton.addEventListener('click', (event) => {
 		scene.triggerAbort();
 	}
 });
-
-scene.add(toolbox);
 
 // Render
 renderer.setSize(window.innerWidth, window.innerHeight);
