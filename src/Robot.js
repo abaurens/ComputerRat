@@ -17,7 +17,7 @@ export const DIRECTIONS = [
 ];
 
 export class Robot extends Sprite {
-	constructor(direction) {
+	constructor(direction = DIRECTIONS[SOUTH]) {
 		super(ROBOT);
 
 		this.material.transparent = true;

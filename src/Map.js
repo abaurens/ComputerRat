@@ -20,6 +20,8 @@ export class Map extends THREE.Object3D {
 
 		this.selectedTile = null;
 
+		this.position.set(0, 0, -2);
+
 		for (let y = 0; y < height; ++y) {
 			this.table[y] = new Array(width);
 			for (let x = 0; x < width; ++x) {

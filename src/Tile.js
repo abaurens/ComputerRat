@@ -32,7 +32,7 @@ export class Exit extends Tile
 		super(TEX.FLAG);
 	}
 
-	onRobotHover(robot, state) {
+	onRobotHover(state) {
 		state.triggerVictory();
 		return false;
 	}
@@ -59,7 +59,7 @@ export class Lava extends Tile
 		super(TEX.LAVA);
 	}
 
-	onRobotHover(robot, state) {
+	onRobotHover(state) {
 		state.triggerAbort();
 		return false;
 	}
@@ -72,8 +72,8 @@ export class TurnTrigo extends Tile
 		this.editable = true;
 	}
 
-	onRobotHover(robot, state) {
-		robot.turnLeft();
+	onRobotHover(state) {
+		state.getRobot().turnLeft();
 		return true;
 	}
 }
@@ -85,8 +85,8 @@ export class TurnHoraire extends Tile
 		this.editable = true;
 	}
 
-	onRobotHover(robot, state) {
-		robot.turnRight();
+	onRobotHover(state) {
+		state.getRobot().turnRight();
 		return true;
 	}
 }
@@ -98,8 +98,8 @@ export class TurnBack extends Tile
 		this.editable = true;
 	}
 
-	onRobotHover(robot, state) {
-		robot.turnBack();
+	onRobotHover(state) {
+		state.getRobot().turnBack();
 		return true;
 	}
 }

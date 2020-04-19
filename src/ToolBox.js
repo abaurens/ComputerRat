@@ -6,7 +6,7 @@ import { TILE } from './texture';
 import { TILE_SIZE } from './Tile';
 
 export class ToolBox extends THREE.Object3D {
-	constructor(camera, renderer, map, mouse) {
+	constructor(camera, renderer, state, mouse) {
 		super();
 
 		this.tools = [];
@@ -17,18 +17,20 @@ export class ToolBox extends THREE.Object3D {
 
 		let controls = new DragControls(this.tools, camera, renderer.domElement);
 
-		this.map = map;
+		this.state = state;
 		this.mouse = mouse;
 
 		controls.addEventListener('dragstart', this.onToolDrag);
 		controls.addEventListener('dragend', (event) =>{
 			let tool = event.object;
+			let map = this.state.getMap();
+			
 			tool.setPos(tool.getAnchor().x, tool.getAnchor().y);
 	
-			let hovered = this.map.getHovered(mouse);
+			let hovered = map.getHovered(mouse);
 	
-			if(!this.map.isLocked() && hovered !== null && hovered.tile.isEditable())
-				this.map.setTile(hovered.x, hovered.y, tool.getTileInstance());
+			if(!map.isLocked() && hovered !== null && hovered.tile.isEditable())
+				map.setTile(hovered.x, hovered.y, tool.getTileInstance());
 		});
 	}
 
