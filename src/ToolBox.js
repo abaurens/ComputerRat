@@ -51,8 +51,6 @@ export class ToolBox extends THREE.Object3D {
 	onToolDrag(event) {
 
 	}
-
-	
 }
 
 export function loadMap(mapName)

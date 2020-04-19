@@ -16,7 +16,7 @@ export class Tile extends THREE.Sprite {
 
 	isEditable() { return this.editable; }
 
-	onRobotHover(robot) {}
+	onRobotHover(robot, state) { return true; }
 }
 
 export class Ground extends Tile
@@ -30,6 +30,11 @@ export class Exit extends Tile
 {
 	constructor() {
 		super(TEX.FLAG);
+	}
+
+	onRobotHover(robot, state) {
+		state.triggerVictory();
+		return false;
 	}
 }
 
@@ -53,6 +58,11 @@ export class Lava extends Tile
 	constructor() {
 		super(TEX.LAVA);
 	}
+
+	onRobotHover(robot, state) {
+		state.triggerAbort();
+		return false;
+	}
 }
 
 export class TurnTrigo extends Tile
@@ -62,8 +72,9 @@ export class TurnTrigo extends Tile
 		this.editable = true;
 	}
 
-	onRobotHover(robot) {
+	onRobotHover(robot, state) {
 		robot.turnLeft();
+		return true;
 	}
 }
 
@@ -74,8 +85,9 @@ export class TurnHoraire extends Tile
 		this.editable = true;
 	}
 
-	onRobotHover(robot) {
+	onRobotHover(robot, state) {
 		robot.turnRight();
+		return true;
 	}
 }
 
@@ -86,7 +98,8 @@ export class TurnBack extends Tile
 		this.editable = true;
 	}
 
-	onRobotHover(robot) {
+	onRobotHover(robot, state) {
 		robot.turnBack();
+		return true;
 	}
 }

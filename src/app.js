@@ -6,6 +6,7 @@ import * as TEXTURE from './texture'
 
 import { ToolBox } from './ToolBox';
 import { Robot, DIRECTIONS } from './Robot';
+import { GameState } from './GameState';
 
 let scene = new THREE.Scene();
 let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 2);
@@ -17,10 +18,6 @@ document.body.appendChild(renderer.domElement);
 
 let mouse = new THREE.Vector2(0, 0);
 
-window.addEventListener('mousemove', (event) => {
-	mouse.x = Math.round(event.clientX - window.innerWidth / 2);
-	mouse.y = Math.round(-event.clientY + window.innerHeight / 2);
-}, false);
 
 let robot = new Robot(DIRECTIONS[1]);
 robot.setPos(0, 0);
@@ -41,10 +38,33 @@ scene.add(robot);
 scene.add(toolbox);
 
 // Updates
+let timer;
 let startButton = document.querySelector("#start")
 
-let timer;
-let state = 0;
+let state = new GameState(() => {
+	clearInterval(timer);
+
+	state.setState(0);
+	map.unlock();
+
+	robot.reset();
+
+	startButton.classList.add('btn-start');
+	startButton.classList.remove('btn-stop');
+	startButton.innerHTML = "Start Simulation";
+}, () => {
+	clearInterval(timer);
+
+	state.setState(0);
+	alert("C'est gagné");
+
+	startButton.disabled = true;
+});
+
+window.addEventListener('mousemove', (event) => {
+	mouse.x = Math.round(event.clientX - window.innerWidth / 2);
+	mouse.y = Math.round(-event.clientY + window.innerHeight / 2);
+}, false);
 
 window.addEventListener('mousedown', (event) => {
 	let hovered = map.getHovered(mouse);
@@ -54,9 +74,8 @@ window.addEventListener('mousedown', (event) => {
 });
 
 startButton.addEventListener('click', (event) => {
-
-	if (state === 0) {
-		state = 1;
+	if (state.getState() === 0) {
+		state.setState(1);
 		map.lock();
 
 		timer = setInterval(() => {
@@ -64,35 +83,22 @@ startButton.addEventListener('click', (event) => {
 
 			if(!hovered)
 			{
-				abortSimulation();
+				state.triggerAbort();
 				return;
 			}
 
-			hovered.tile.onRobotHover(robot);
-			
-			robot.update();
+			if(hovered.tile.onRobotHover(robot, state))
+				robot.update();
 		}, 1000 / 2);
 
 		startButton.classList.add('btn-stop');
 		startButton.classList.remove('btn-start');
 		startButton.innerHTML = "Stop Simulation";
 	}
-	else if (state === 1) {
-		abortSimulation();
+	else if (state.getState() === 1) {
+		state.triggerAbort();
 	}
 });
-
-function abortSimulation() {
-	state = 0;
-	map.unlock();
-
-	clearInterval(timer);
-	robot.reset();
-
-	startButton.classList.add('btn-start');
-	startButton.classList.remove('btn-stop');
-	startButton.innerHTML = "Start Simulation";
-}
 
 let animate = function () {
 	requestAnimationFrame(animate);
