@@ -5,7 +5,7 @@ import { Robot } from './Robot';
 import { Stack } from './Stack';
 import { ToolBox } from './ToolBox';
 
-const levels = ["01", "02", "03"];
+const levels = ["01", "02", "03", "04"];
 
 const tutos = [{
 	map : "t1",
