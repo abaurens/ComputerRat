@@ -65,14 +65,22 @@
 		.progress {
 			background-color: #414141;
 		}
+
+		.energy-tag {
+			color : #ffdd57;
+			font-size: 36px;
+			padding-bottom: 10px;
+			line-height: 36px;
+		}
 	</style>
 </head>
 
 <body>
-	<div id="controls" class="container is-fluid">
+	<div id="controls" class="container">
 		<div class="columns">
 			<div class="column"><button id="start" class="btn btn-start">Start Simulation</button></div>
 			<div class="column">
+				<div><h2 class="energy-tag is-warning">Energy</h2></div>
 				<progress id="energy-bar" class="progress is-warning" value="100" max="100"></progress>
 			</div>
 		</div>
