@@ -3,13 +3,16 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>My first three.js app</title>
+	<title>Computer Rat</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 	<style>
 		html, body {
 			margin: 0;
 
 			overflow: hidden;
+
+			background-image: url("background.png");
 		}
 
 		canvas {
@@ -80,7 +83,7 @@
 		<div class="columns">
 			<div class="column"><button id="start" class="btn btn-start">Start Simulation</button></div>
 			<div class="column">
-				<div><h2 class="energy-tag is-warning">Energy</h2></div>
+				<div><h2 class="energy-tag is-warning"><i class="fas fa-bolt"></i> Energy</h2></div>
 				<progress id="energy-bar" class="progress is-warning" value="100" max="100"></progress>
 			</div>
 		</div>

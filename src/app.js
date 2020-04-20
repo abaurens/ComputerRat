@@ -8,7 +8,7 @@ let timer;
 let startButton = document.querySelector("#start")
 
 let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 2);
-let renderer = new THREE.WebGLRenderer();
+let renderer = new THREE.WebGLRenderer({ alpha: true });
 let mouse = new THREE.Vector2(0, 0);
 
 let scene = new GameScene(() => {
