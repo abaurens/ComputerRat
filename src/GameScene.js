@@ -6,6 +6,9 @@ import { Stack } from './Stack';
 
 const levels = ["01", "02", "03"];
 
+const tutos = ["t1"];
+
+
 export class GameScene extends THREE.Scene {
 	constructor(abortCallback, victoryCallback, endCallback) {
 		super();
@@ -13,6 +16,7 @@ export class GameScene extends THREE.Scene {
 		this.state = 0;
 		this.level = 0;
 		this.tick = 0;
+		this.isTuto = true;
 
 		this.map = null;
 		this.loadMap();
@@ -40,7 +44,7 @@ export class GameScene extends THREE.Scene {
 		this.state = 0;
 		this.victoryCallback();
 
-		if(!this.loadMap())
+		if (!this.loadMap())
 		{
 			this.state = 2;
 			this.endCallback();
@@ -50,17 +54,30 @@ export class GameScene extends THREE.Scene {
 	getMap() { return this.map; }
 
 	loadMap() {
+		let level = "";
+		if (this.isTuto && this.level < tutos.length)
+			level = tutos[this.level++];
+		else
+		{
+			if (this.isTuto)
+			{
+				this.level = 0;
+				this.isTuto = 0;
+			}
+			if (this.level >= levels.length)
+				return false;
+			level = levels[this.level++];
+		}
+		
 		// Last map succeeded
-		if(this.level >= levels.length)
-			return false;
-
-		if(this.map)
+		if (this.map)
 			this.remove(this.map);
-		this.map = MAP.loadMap(levels[this.level++]);
+		this.map = MAP.loadMap(level);
 		this.add(this.map);
 
 		this.map.getRobot().chargeMax();
-		if(this.stack)
+
+		if (this.stack)
 			this.stack.flush();
 		this.tick = 0;
 

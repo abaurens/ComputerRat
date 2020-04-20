@@ -36,7 +36,7 @@ let scene = new GameScene(() => {
 	alert("Tu as fini le jeu ! Félicitation !")
 });
 
-let toolbox = new ToolBox(camera, renderer, scene, mouse);
+export let toolbox = new ToolBox(camera, renderer, scene, mouse);
 
 scene.add(toolbox);
 

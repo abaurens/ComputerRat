@@ -62,4 +62,10 @@ export class ToolBox extends THREE.Object3D {
 		this.tools[i].setPos(x, y);
 		this.add(this.tools[i]);
 	}
+
+	update() {
+		let mapSize = state.getMap().getSize();
+		this.background.position.set((3 / 2) * TOOLS.TOOL_SIZE, 0, 0);
+		this.position.set((mapSize.x + 2) * TILE_SIZE / 2, 0, 0);
+	}
 }
