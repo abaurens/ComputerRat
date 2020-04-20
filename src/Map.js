@@ -152,7 +152,7 @@ export function loadMap(mapName) {
 		for (let x = 0; x < width; x++) {
 			if (dirs.includes(mapString[x + y * width]))
 			{
-				map.setTile(x, height - (y + 1), new TILE.Ground());
+				map.setTile(x, height - (y + 1), new TILE.Plug());
 				map.getRobot().setPos(x - Math.floor(width / 2), height - (y + 1) - Math.floor(height / 2), 1);
 				map.getRobot().setDirection(DIRECTIONS[dirs.indexOf(mapString[x + y * width])]);
 				map.getRobot().setDefault();
