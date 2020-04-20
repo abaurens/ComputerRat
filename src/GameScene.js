@@ -10,35 +10,58 @@ const levels = ["01", "02", "03", "04"];
 const tutos = [{
 	map : "t1",
 	msg : "Click on play button and watch the robot go to the end !",
-	canRetry : false
-}, {
-	map : "t2",
-	msg : "The blue go back tile makes the robot turn back !",
-	canRetry : false
+	canRetry : false,
+	canEdit : false
 }, {
 	map : "t3",
-	msg : "Sometimes the robot will need your help !",
-	canRetry : true
+	msg : "",
+	canRetry : false,
+	canEdit : false
+}, {
+	map : "t2",
+	msg : "Sometimes the robot will need some help !",
+	canRetry : false,
+	canEdit : false
+}, {
+	map : "t3",
+	msg : "The blue go back tile made the robot turn back ! Try to reproduce what you saw !",
+	canRetry : true,
+	canEdit : true
 }, {
 	map : "t4",
 	msg : "The robot will meet some colored gate and paint bucket. If the first stacked color is not the same, you die !",
-	canRetry : false
-},{
+	canRetry : false,
+	canEdit : false
+}, {
 	map : "t5",
 	msg : "If the color is the same, the robot will pass !",
-	canRetry : false
-},{
+	canRetry : false,
+	canEdit : false
+}, {
 	map : "t6",
 	msg : "The robot will perform operations on 2 last stacked colors !",
-	canRetry : false
-},{
+	canRetry : false,
+	canEdit : false
+}, {
 	map : "t7",
-	msg : "You could add them on the map !",
-	canRetry : true
-},{
+	msg : "Just like arrows, You can add them on the map !",
+	canRetry : true,
+	canEdit : true
+}, {
 	map : "t8",
 	msg : "Test the swap, it swap 2 last stacked colors !",
-	canRetry : true
+	canRetry : true,
+	canEdit : true
+}, {
+	map : "t9",
+	msg : "Be carefull not to get out of power !",
+	canRetry : false,
+	canEdit : true
+}, {
+	map : "t10",
+	msg : "Maybe this plug will help you ?",
+	canRetry : true,
+	canEdit : true
 }];
 
 
@@ -101,6 +124,7 @@ export class GameScene extends THREE.Scene {
 
 	loadMap() {
 		let level = "";
+		let canEdit = true;
 		document.querySelector("#flash").innerHTML = "";
 
 		if (this.isTuto && this.level < tutos.length)
@@ -108,6 +132,7 @@ export class GameScene extends THREE.Scene {
 			let tuto = tutos[this.level++];
 			level = tuto.map;
 			this.canRetry = tuto.canRetry;
+			canEdit = tuto.canEdit;
 
 			document.querySelector("#flash").innerHTML = tuto.msg;
 		}
@@ -128,7 +153,7 @@ export class GameScene extends THREE.Scene {
 		// Last map succeeded
 		if (this.map)
 			this.remove(this.map);
-		this.map = MAP.loadMap(level, !this.canRetry);
+		this.map = MAP.loadMap(level, canEdit);
 		this.add(this.map);
 
 		this.map.getRobot().chargeMax();
