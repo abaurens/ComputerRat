@@ -24,7 +24,7 @@ let scene = new GameScene(camera, renderer, mouse, () => {
 }, () => {
 	clearInterval(timer);
 
-	alert("C'est gagné");
+	alert("You stay alive !");
 
 	startButton.classList.add('btn-start');
 	startButton.classList.remove('btn-stop');
@@ -32,7 +32,7 @@ let scene = new GameScene(camera, renderer, mouse, () => {
 }, () => {
 	startButton.disabled = true;
 
-	alert("Tu as fini le jeu ! Félicitation !")
+	alert("You stayed alive all along the game ! I'll give you a cake next time !");
 });
 
 window.addEventListener('mousemove', (event) => {
