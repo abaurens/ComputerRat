@@ -30,8 +30,9 @@
 
 		.btn {
 			cursor: pointer;
-			padding: 20px;
-			width: 250px;
+			width: 72px;
+			height: 72px;
+			line-height: 72px;
 
 			border-radius: 10px;
 
@@ -75,13 +76,24 @@
 			padding-bottom: 10px;
 			line-height: 36px;
 		}
+
+		.button-container {
+			text-align: center;
+		}
+
+		.title {
+			color : #4acf9c;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="controls" class="container">
 		<div class="columns">
-			<div class="column"><button id="start" class="btn btn-start">Start Simulation</button></div>
+			<div class="column"><h1 class="title is-1">Computer Rat</h1></div>
+			<div class="column is-1 button-container">
+				<button id="start" class="btn btn-start"><i class="fas fa-play"></i></button>
+			</div>
 			<div class="column">
 				<div><h2 class="energy-tag is-warning"><i class="fas fa-bolt"></i> Energy</h2></div>
 				<progress id="energy-bar" class="progress is-warning" value="100" max="100"></progress>

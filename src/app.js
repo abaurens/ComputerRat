@@ -21,7 +21,7 @@ let scene = new GameScene(() => {
 
 	startButton.classList.add('btn-start');
 	startButton.classList.remove('btn-stop');
-	startButton.innerHTML = "Start Simulation";
+	startButton.innerHTML = "<i class='fas fa-play'></i>";
 }, () => {
 	clearInterval(timer);
 
@@ -29,7 +29,7 @@ let scene = new GameScene(() => {
 
 	startButton.classList.add('btn-start');
 	startButton.classList.remove('btn-stop');
-	startButton.innerHTML = "Start Simulation";
+	startButton.innerHTML = "<i class='fas fa-play'></i>";
 }, () => {
 	startButton.disabled = true;
 
@@ -84,7 +84,7 @@ startButton.addEventListener('click', (event) => {
 
 		startButton.classList.add('btn-stop');
 		startButton.classList.remove('btn-start');
-		startButton.innerHTML = "Stop Simulation";
+		startButton.innerHTML = "<i class='fas fa-stop'></i>";
 	}
 	else if (scene.isRunning()) {
 		scene.triggerAbort();
