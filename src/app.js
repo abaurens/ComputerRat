@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import * as TILE from './Tile'
 
 import { GameScene } from './GameScene';
+import { Sprite } from './Sprite';
+import { getTexture } from './texture';
 
 let timer;
 let startButton = document.querySelector("#start")
