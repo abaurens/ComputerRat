@@ -7,7 +7,39 @@ import { ToolBox } from './ToolBox';
 
 const levels = ["01", "02", "03"];
 
-const tutos = ["t1"];
+const tutos = [{
+	map : "t1",
+	msg : "Click on play button and watch the robot go to the end !",
+	canRetry : false
+}, {
+	map : "t2",
+	msg : "The blue go back tile makes the robot turn back !",
+	canRetry : false
+}, {
+	map : "t3",
+	msg : "Sometimes the robot will need your help !",
+	canRetry : true
+}, {
+	map : "t4",
+	msg : "The robot will meet some colored gate and paint bucket. If the first stacked color is not the same, you die !",
+	canRetry : false
+},{
+	map : "t5",
+	msg : "If the color is the same, the robot will pass !",
+	canRetry : false
+},{
+	map : "t6",
+	msg : "The robot will perform operations on 2 last stacked colors !",
+	canRetry : false
+},{
+	map : "t7",
+	msg : "You could add them on the map !",
+	canRetry : true
+},{
+	map : "t8",
+	msg : "Test the swap, it swap 2 last stacked colors !",
+	canRetry : true
+}];
 
 
 export class GameScene extends THREE.Scene {
@@ -18,6 +50,7 @@ export class GameScene extends THREE.Scene {
 		this.level = 0;
 		this.tick = 0;
 		this.isTuto = true;
+		this.canRetry = false;
 
 		this.map = null;
 		this.loadMap();
@@ -39,6 +72,14 @@ export class GameScene extends THREE.Scene {
 	}
 
 	triggerAbort() {
+		alert("You die!");
+
+		if (!this.canRetry && !this.loadMap())
+		{
+			this.state = 2;
+			this.endCallback();
+		}
+
 		this.tick = 0;
 		this.state = 0;
 		this.abortCallback();
@@ -60,14 +101,24 @@ export class GameScene extends THREE.Scene {
 
 	loadMap() {
 		let level = "";
+		document.querySelector("#flash").innerHTML = "";
+
 		if (this.isTuto && this.level < tutos.length)
-			level = tutos[this.level++];
+		{
+			let tuto = tutos[this.level++];
+			level = tuto.map;
+			this.canRetry = tuto.canRetry;
+
+			document.querySelector("#flash").innerHTML = tuto.msg;
+		}
 		else
 		{
 			if (this.isTuto)
 			{
 				this.level = 0;
-				this.isTuto = 0;
+				this.isTuto = false;
+				this.canRetry = true;
+				alert("Well done ! You have finished the tutorial !");
 			}
 			if (this.level >= levels.length)
 				return false;
@@ -77,7 +128,7 @@ export class GameScene extends THREE.Scene {
 		// Last map succeeded
 		if (this.map)
 			this.remove(this.map);
-		this.map = MAP.loadMap(level, this.isTuto);
+		this.map = MAP.loadMap(level, !this.canRetry);
 		this.add(this.map);
 
 		this.map.getRobot().chargeMax();
