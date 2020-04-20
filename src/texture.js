@@ -7,6 +7,7 @@ export const LAVA = getTexture("lava.png");
 export const FLAG = getTexture("flag.png");
 export const HOVER = getTexture("white.png");
 export const BATTERY = getTexture("battery.png");
+export const WHITE_TILE = getTexture("white_tile.png");
 
 
 export const PAINT_RED = getTexture("paint_red.png");

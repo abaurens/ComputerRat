@@ -142,7 +142,7 @@ export class Map extends THREE.Object3D {
 const dirs = "nesw";
 const colors = "01234567";
 
-export function loadMap(mapName) {
+export function loadMap(mapName, editable = true) {
 	if(!mapName)
 		return null;
 	
@@ -181,7 +181,11 @@ export function loadMap(mapName) {
 				map.setTile(x, height - (y + 1), new TILE.Conditional(color));
 			}
 			else
+			{
 				map.setTile(x, height - (y + 1), new tilesMap[mapString[x + y * width]]);
+				if (!editable && map.table[y][x].isEditable)
+					map.table[y][x].isEditable = false;
+			}
 		}
 	}
 	return map;

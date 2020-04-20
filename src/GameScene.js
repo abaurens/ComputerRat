@@ -77,7 +77,7 @@ export class GameScene extends THREE.Scene {
 		// Last map succeeded
 		if (this.map)
 			this.remove(this.map);
-		this.map = MAP.loadMap(level);
+		this.map = MAP.loadMap(level, !this.isTuto);
 		this.add(this.map);
 
 		this.map.getRobot().chargeMax();

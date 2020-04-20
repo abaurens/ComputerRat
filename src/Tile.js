@@ -182,7 +182,7 @@ export class Sub extends Tile {
 
 export class Conditional extends Tile {
 	constructor(color) {
-		super(TEX.TILE);
+		super(TEX.WHITE_TILE);
 
 		this.color = color;
 
