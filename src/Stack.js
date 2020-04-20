@@ -32,7 +32,7 @@ export class Stack extends THREE.Object3D {
 		{
 			alert("Stack Overflow");
 			this.state.triggerAbort();
-			return;
+			return null;
 		}
 
 		this.stack.push(color);
@@ -47,6 +47,13 @@ export class Stack extends THREE.Object3D {
 	}
 
 	pop() {
+		if(this.stack.length <= 0)
+		{
+			alert("Stack Overflow");
+			this.state.triggerAbort();
+			return null;
+		}
+
 		let container = this.stackSprites.pop();
 		this.remove(container);
 
@@ -54,15 +61,23 @@ export class Stack extends THREE.Object3D {
 	}
 
 	doOp(callback) {
-		let a = this.pop();
-		let b = this.pop();
+		let a, b;
+		
+		if(!(a = this.pop()))
+			return;
+		if(!(b = this.pop()))
+			return;
 
 		this.push(callback(a, b));
 	}
 
 	swap() {
-		let a = this.pop();
-		let b = this.pop();
+		let a, b;
+		
+		if(!(a = this.pop()))
+			return;
+		if(!(b = this.pop()))
+			return;
 
 		this.push(a);
 		this.push(b);
