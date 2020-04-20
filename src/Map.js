@@ -5,11 +5,20 @@ import * as TEXTURE from './texture'
 import { Robot, DIRECTIONS } from './Robot'
 
 const tilesMap = {
+	//tools
+	"+": TILE.Add,
+	"-": TILE.Sub,
+	"=": TILE.Swap,
+	"h": TILE.TurnHoraire,
+	"t": TILE.TurnTrigo,
+	"b": TILE.TurnBack,
+	//tiles
 	"P": TILE.Plug,
 	"S": TILE.Slot,
 	" ": TILE.Lava,
 	"E": TILE.Exit,
 	"#": TILE.Ground,
+	//paint
 	"R": TILE.PaintRed,
 	"G": TILE.PaintGreen,
 	"B": TILE.PaintBlue
