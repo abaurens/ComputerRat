@@ -6,6 +6,8 @@ export class Sprite extends THREE.Sprite{
 	constructor(texture, width = SPRITE_SIZE, height = SPRITE_SIZE) {
 		super(new THREE.SpriteMaterial({ map: texture }));
 
+		this.material.transparent = true
+
 		this.scale.set(width, height, 1);
 
 		this.pos = new THREE.Vector2(0, 0);

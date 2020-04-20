@@ -14,11 +14,11 @@ export class GameScene extends THREE.Scene {
 		this.level = 0;
 		this.tick = 0;
 
-		this.stack = new Stack();
-		this.add(this.stack);
-
 		this.map = null;
 		this.loadMap();
+
+		this.stack = new Stack(this);
+		this.add(this.stack);
 		
 		this.abortCallback = abortCallback;
 		this.victoryCallback = victoryCallback;
@@ -60,7 +60,8 @@ export class GameScene extends THREE.Scene {
 		this.add(this.map);
 
 		this.map.getRobot().chargeMax();
-		this.stack.flush();
+		if(this.stack)
+			this.stack.flush();
 		this.tick = 0;
 
 		return true;

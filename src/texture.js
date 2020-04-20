@@ -33,6 +33,9 @@ export const SWAP_TOOL = getTexture("tool_swap.png");
 export const ADD_TOOL = getTexture("tool_add.png");
 export const SUB_TOOL = getTexture("tool_sub.png");
 
+export const STACK_BG = getTexture("stack_bg.png");
+export const TOOLBOX_BG = getTexture("toolbox_bg.png");
+
 export function getTexture(path) {
 	let tex = new THREE.TextureLoader().load(path);
 	tex.magFilter = THREE.NearestFilter;

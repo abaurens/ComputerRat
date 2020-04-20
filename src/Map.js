@@ -124,6 +124,10 @@ export class Map extends THREE.Object3D {
 		res.y = (y * TILE.TILE_SIZE) - boundH / 2;
 		return (res);
 	}
+
+	getSize() {
+		return this.size;
+	}
 }
 
 const dirs = "nesw";
@@ -136,6 +140,7 @@ export function loadMap(mapName) {
 	let mapString = require(`../maps/${mapName}.txt`);
 	let size = mapString.length + (mapString[mapString.length - 1] !== "\n");
 	let width = mapString.indexOf('\n');
+	if(width < 0) width = size - 1;
 	let height = size / (width + 1);
 
 	mapString = mapString.replace(/\r?\n|\r/gm, "");

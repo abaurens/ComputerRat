@@ -3,12 +3,26 @@ import DragControls from 'three-dragcontrols';
 
 import * as TOOLS from './Tools';
 import { TILE_SIZE } from './Tile';
+import { Sprite } from './Sprite';
+import { TOOLBOX_BG } from './texture';
 
 export class ToolBox extends THREE.Object3D {
 	constructor(camera, renderer, state, mouse) {
 		super();
 
+		this.state = state;
+		this.mouse = mouse;
+
+		let mapSize = state.getMap().getSize();
+
+		this.background = new Sprite(TOOLBOX_BG);
+		this.background.scale.set(256, 256, 1);
+		this.background.position.set((3 / 2) * TOOLS.TOOL_SIZE, 0, 0);
+		this.add(this.background);
+
 		this.tools = [];
+
+		this.position.set((mapSize.x + 2) * TILE_SIZE / 2, 0, 0);
 
 		this.addTool(new TOOLS.TurnLeft());
 		this.addTool(new TOOLS.TurnRight());
@@ -18,9 +32,6 @@ export class ToolBox extends THREE.Object3D {
 		this.addTool(new TOOLS.Sub());
 
 		let controls = new DragControls(this.tools, camera, renderer.domElement);
-
-		this.state = state;
-		this.mouse = mouse;
 
 		controls.addEventListener('dragstart', () => {});
 		controls.addEventListener('dragend', (event) =>{
@@ -45,8 +56,8 @@ export class ToolBox extends THREE.Object3D {
 		
 		this.tools[i] = tool;
 
-		let x = (window.innerWidth / (2 * TILE_SIZE)) - (3 + ((i % 3) * 1.2));
-		let y = (window.innerHeight / (2 * TILE_SIZE)) - (6 + (Math.floor(i / 3) * 1.2));
+		let x = (i % 3);
+		let y = - Math.floor(i / 3);
 
 		this.tools[i].setPos(x, y);
 		this.add(this.tools[i]);

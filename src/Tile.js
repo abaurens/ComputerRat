@@ -120,7 +120,7 @@ class TilePaint extends Tile {
 
 	getColor() { return this.color; }
 
-	onRobotEnter(state) {
+	onRobotHover(state) {
 		state.getStack().push(this.color);
 		return true;
 	}

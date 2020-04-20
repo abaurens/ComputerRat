@@ -1,26 +1,46 @@
 import * as THREE from 'three';
-import { Sprite } from './Sprite';
-import { STACK_CONTAINER } from './texture';
+import { Sprite, SPRITE_SIZE } from './Sprite';
+import { STACK_CONTAINER, STACK_BG } from './texture';
+import { TILE_SIZE } from './Tile';
 
 const maxSize = 5;
+const CONTAINER_WIDTH = 100;
+const CONTAINER_HEIGHT = 30;
+const CONTAINER_SPACE = 10;
 
 export class Stack extends THREE.Object3D {
-	constructor() {
+	constructor(state) {
 		super();
 
-		this.position.set(-window.innerWidth / 2 + 100, window.innerHeight / 2 - 150, 0);
+		this.state = state;
+
+		let mapSize = state.getMap().getSize();
+
+		this.background = new Sprite(STACK_BG);
+		this.background.scale.set(140, 320, 1);
+		this.background.position.set(0, ((maxSize + 1) / 2) * (CONTAINER_HEIGHT + CONTAINER_SPACE), 0);
+		this.add(this.background);
+
+		this.position.set(-(mapSize.x + 3) * TILE_SIZE / 2, -((maxSize + 1) / 2) * (CONTAINER_HEIGHT + CONTAINER_SPACE), 0);
 
 		this.stack = [];
 		this.stackSprites = [];
 	}
 
 	push(color) {
+		if(this.stack.length >= maxSize)
+		{
+			alert("Stack Overflow");
+			this.state.triggerAbort();
+			return;
+		}
+
 		this.stack.push(color);
 
 		let container = new Sprite(STACK_CONTAINER);
 		container.material.color.set(color);
-		container.scale.set(100, 30, 1);
-		container.setPos(0, this.stack.length - maxSize, 0);
+		container.scale.set(CONTAINER_WIDTH, CONTAINER_HEIGHT, 1);
+		container.position.set(0, this.stack.length * (CONTAINER_HEIGHT + CONTAINER_SPACE), 0);
 
 		this.add(container);
 		this.stackSprites.push(container);
