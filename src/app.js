@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import * as TILE from './Tile'
 
-import { ToolBox } from './ToolBox';
 import { GameScene } from './GameScene';
 
 let timer;
@@ -11,7 +10,7 @@ let camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWi
 let renderer = new THREE.WebGLRenderer({ alpha: true });
 let mouse = new THREE.Vector2(0, 0);
 
-let scene = new GameScene(() => {
+let scene = new GameScene(camera, renderer, mouse, () => {
 	clearInterval(timer);
 
 	scene.getMap().unlock();
@@ -35,10 +34,6 @@ let scene = new GameScene(() => {
 
 	alert("Tu as fini le jeu ! Félicitation !")
 });
-
-export let toolbox = new ToolBox(camera, renderer, scene, mouse);
-
-scene.add(toolbox);
 
 window.addEventListener('mousemove', (event) => {
 	mouse.x = Math.round(event.clientX - window.innerWidth / 2);

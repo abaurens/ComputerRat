@@ -13,8 +13,6 @@ export class ToolBox extends THREE.Object3D {
 		this.state = state;
 		this.mouse = mouse;
 
-		let mapSize = state.getMap().getSize();
-
 		this.background = new Sprite(TOOLBOX_BG);
 		this.background.scale.set(256, 256, 1);
 		this.background.position.set((3 / 2) * TOOLS.TOOL_SIZE, 0, 0);
@@ -22,7 +20,7 @@ export class ToolBox extends THREE.Object3D {
 
 		this.tools = [];
 
-		this.position.set((mapSize.x + 2) * TILE_SIZE / 2, 0, 0);
+		this.update();
 
 		this.addTool(new TOOLS.TurnLeft());
 		this.addTool(new TOOLS.TurnRight());
@@ -64,8 +62,7 @@ export class ToolBox extends THREE.Object3D {
 	}
 
 	update() {
-		let mapSize = state.getMap().getSize();
-		this.background.position.set((3 / 2) * TOOLS.TOOL_SIZE, 0, 0);
+		let mapSize = this.state.getMap().getSize();
 		this.position.set((mapSize.x + 2) * TILE_SIZE / 2, 0, 0);
 	}
 }

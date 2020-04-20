@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import * as MAP from './Map';
 import { Robot } from './Robot';
 import { Stack } from './Stack';
+import { ToolBox } from './ToolBox';
 
 const levels = ["01", "02", "03"];
 
@@ -10,7 +11,7 @@ const tutos = ["t1"];
 
 
 export class GameScene extends THREE.Scene {
-	constructor(abortCallback, victoryCallback, endCallback) {
+	constructor(camera, renderer, mouse, abortCallback, victoryCallback, endCallback) {
 		super();
 
 		this.state = 0;
@@ -23,6 +24,10 @@ export class GameScene extends THREE.Scene {
 
 		this.stack = new Stack(this);
 		this.add(this.stack);
+
+		
+		this.toolbox = new ToolBox(camera, renderer, this, mouse);
+		this.add(this.toolbox);
 		
 		this.abortCallback = abortCallback;
 		this.victoryCallback = victoryCallback;
@@ -78,7 +83,16 @@ export class GameScene extends THREE.Scene {
 		this.map.getRobot().chargeMax();
 
 		if (this.stack)
+		{
 			this.stack.flush();
+			this.stack.update();
+		}
+
+		if (this.toolbox)
+		{
+			this.toolbox.update();
+		}
+
 		this.tick = 0;
 
 		return true;
@@ -96,4 +110,6 @@ export class GameScene extends THREE.Scene {
 
 	switchTick() { this.tick ^= 1; }
 	getTick() { return this.tick; }
+
+	getToolbox() { return this.toolbox; }
 }

@@ -14,14 +14,12 @@ export class Stack extends THREE.Object3D {
 
 		this.state = state;
 
-		let mapSize = state.getMap().getSize();
-
 		this.background = new Sprite(STACK_BG);
 		this.background.scale.set(140, 320, 1);
 		this.background.position.set(0, ((maxSize + 1) / 2) * (CONTAINER_HEIGHT + CONTAINER_SPACE), 0);
 		this.add(this.background);
-
-		this.position.set(-(mapSize.x + 3) * TILE_SIZE / 2, -((maxSize + 1) / 2) * (CONTAINER_HEIGHT + CONTAINER_SPACE), 0);
+		
+		this.update();
 
 		this.stack = [];
 		this.stackSprites = [];
@@ -49,7 +47,7 @@ export class Stack extends THREE.Object3D {
 	pop() {
 		if(this.stack.length <= 0)
 		{
-			alert("Stack Overflow");
+			alert("Stack Underflow");
 			this.state.triggerAbort();
 			return null;
 		}
@@ -87,5 +85,10 @@ export class Stack extends THREE.Object3D {
 		this.stackSprites.forEach(stackSprite => this.remove(stackSprite));
 		this.stackSprites = [];
 		this.stack = [];
+	}
+
+	update() {
+		let mapSize = this.state.getMap().getSize();
+		this.position.set(-(mapSize.x + 3) * TILE_SIZE / 2, -((maxSize + 1) / 2) * (CONTAINER_HEIGHT + CONTAINER_SPACE), 0);
 	}
 }
