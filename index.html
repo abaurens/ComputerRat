@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Computer Rat</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+	<style>
+		html, body {
+			margin: 0;
+
+			overflow: hidden;
+
+			background-image: url("background.png");
+		}
+
+		canvas {
+			display: block;
+		}
+
+		#controls {
+			position: absolute;
+			right: 0;
+			top: 0;
+			left: 0;
+
+			padding: 20px;
+		}
+
+		.btn {
+			cursor: pointer;
+			width: 72px;
+			height: 72px;
+			line-height: 72px;
+
+			border-radius: 10px;
+
+			color: #fff;
+			font-weight: 800;
+			font-size: 24px;
+		}
+
+		.btn-stop {
+			background-color: #cc2e06;
+			border: #752303 solid 2px;
+		}
+
+		.btn-stop:hover {
+			background-color: #da5635;
+			border: #8f320d solid 2px;
+		}
+
+		.btn-start {
+			background-color: #04df8b;
+			border: #06aa6b solid 2px;
+		}
+
+		.btn-start:hover {
+			background-color: #08aa6c;
+			border: #08774d solid 2px;
+		}
+
+		.btn:disabled {
+			background-color: #7e7e7e;
+			border: #414141 solid 2px;
+		}
+
+		.progress {
+			background-color: #414141;
+		}
+
+		.energy-tag {
+			color : #ffdd57;
+			font-size: 36px;
+			padding-bottom: 10px;
+			line-height: 36px;
+		}
+
+		.button-container {
+			text-align: center;
+		}
+
+		.title {
+			color : #4acf9c;
+		}
+
+		.flash {
+			color : #fff;
+			font-size: 24px;
+			font-weight: 600;
+
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="controls" class="container">
+		<div class="columns">
+			<div class="column"><h1 class="title is-1">Computer Rat</h1></div>
+			<div class="column is-1 button-container">
+				<button id="start" class="btn btn-start"><i class="fas fa-play"></i></button>
+			</div>
+			<div class="column">
+				<div><h2 class="energy-tag is-warning"><i class="fas fa-bolt"></i> Energy</h2></div>
+				<progress id="energy-bar" class="progress is-warning" value="100" max="100"></progress>
+			</div>
+		</div>
+		<div class="flash" id="flash"></div>
+	</div>
+	<script src="bundle.js"></script>
+</body>
+
+</html>
