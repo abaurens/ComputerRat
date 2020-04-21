@@ -13,11 +13,6 @@ const tutos = [{
 	canRetry : false,
 	canEdit : false
 }, {
-	map : "t3",
-	msg : "",
-	canRetry : false,
-	canEdit : false
-}, {
 	map : "t2",
 	msg : "Sometimes the robot will need some help !",
 	canRetry : false,
@@ -55,7 +50,7 @@ const tutos = [{
 }, {
 	map : "t9",
 	msg : "Be carefull not to get out of power !",
-	canRetry : false,
+	canRetry : true,
 	canEdit : true
 }, {
 	map : "t10",
@@ -63,7 +58,6 @@ const tutos = [{
 	canRetry : true,
 	canEdit : true
 }];
-
 
 export class GameScene extends THREE.Scene {
 	constructor(camera, renderer, mouse, abortCallback, victoryCallback, endCallback) {
@@ -94,13 +88,17 @@ export class GameScene extends THREE.Scene {
 		this.map.update(mouse);
 	}
 
-	triggerAbort() {
-		alert("You die!");
-
-		if (!this.canRetry && !this.loadMap())
+	triggerAbort(allert = true) {
+		if (allert)
 		{
-			this.state = 2;
-			this.endCallback();
+			alert("You die!");
+			let passNine = (this.isTuto && this.level == 9
+							&& this.map.getRobot().energy < 0); //validate tuto 09 if dead by power loss
+			if ((!this.canRetry || passNine) && !this.loadMap())
+			{
+				this.state = 2;
+				this.endCallback();
+			}
 		}
 
 		this.tick = 0;

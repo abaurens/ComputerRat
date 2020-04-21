@@ -84,7 +84,7 @@ startButton.addEventListener('click', (event) => {
 		startButton.innerHTML = "<i class='fas fa-stop'></i>";
 	}
 	else if (scene.isRunning()) {
-		scene.triggerAbort();
+		scene.triggerAbort(false);
 	}
 });
 
