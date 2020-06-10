@@ -6,7 +6,9 @@ Discover the **computer logic** in a colorful and dangerous environment.
 Make your robot perform actions and operations to find it's way without **falling in lava** or be **out of power**.
 
 ## Test our game online :
-[https://tybau.github.io/computer-rat/](https://tybau.github.io/computer-rat/)
+[Updated Version](https://abaurens.github.io/ComputerRat/)
+
+[Ludum Dare Version](https://tybau.github.io/computer-rat)
 
 ## Technologies : 
 
